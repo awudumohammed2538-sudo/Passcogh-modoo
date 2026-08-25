@@ -1,1 +1,60 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PASSCO GH - All Subjects</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}body{background:#f8fafc}header{background:#0f172a;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;position:sticky;top:0}.logo{font-weight:800}.logo span{color:#38bdf8}.hero{max-width:900px;margin:14px auto;background:#fff;border-radius:16px;padding:16px;display:flex;gap:12px;align-items:center;box-shadow:0 4px 12px rgba(0,0,0,.06)}.hero img{width:70px;height:70px;border-radius:50%;border:3px solid #bae6fd}.badge{background:#e0f2fe;color:#0369a1;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700}.sec{max-width:900px;margin:10px auto;padding:0 12px}.sec h2{font-size:14px;margin:12px 0 8px;color:#0f172a;border-left:4px solid #38bdf8;padding-left:8px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}@media(max-width:600px){.grid{grid-template-columns:1fr}}.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 2px 6px rgba(0,0,0,.05)}.card h3{font-size:13px}.card p{font-size:11px;color:#64748b}.btn{display:inline-block;margin-top:6px;background:#0f172a;color:#fff;padding:6px 10px;border-radius:6px;text-decoration:none;font-size:11px}footer{text-align:center;color:#94a3b8;font-size:10px;padding:20px}.ad{background:#f1f5f9;border:1px dashed #cbd5e1;border-radius:8px;padding:8px;text-align:center;font-size:10px;margin:10px auto;max-width:900px}</style><script src="https://fpyf8.com/88/tag.min.js" data-zone="YOUR_ZONE_ID" async></script></head><body><header><div class="logo">PASSCO <span>GH</span></div><div style="font-size:11px;color:#cbd5e1">Polite Learning</div></header><div class="hero"><img src="https://via.placeholder.com/80?text=Modoo"><div><h3 style="font-size:15px">Hi, I'm Modoo - Welcome to PASSCO GH</h3><p style="font-size:12px;color:#475569">All WASSCE Core + Electives - Free, fast, polite.</p><span class="badge">Founder - Kumasi</span></div></div><div class="ad">Monetag Ad - Replace YOUR_ZONE_ID</div><div class="sec"><h2>🔷 CORE SUBJECTS</h2><div class="grid"><div class="card"><h3>Core Mathematics</h3><p>2015-2024</p><a class="btn" href="#">Open</a></div><div class="card"><h3>Integrated Science</h3><p>All topics</p><a class="btn" href="#">Open</a></div><div class="card"><h3>English Language</h3><p>Essay & Objective</p><a class="btn" href="#">Open</a></div><div class="card"><h3>Social Studies</h3><p>Updated syllabus</p><a class="btn" href="#">Open</a></div></div><h2>🔬 SCIENCE ELECTIVES</h2><div class="grid"><div class="card"><h3>Elective Maths</h3><p>Further Maths</p><a class="btn" href="#">Open</a></div><div class="card"><h3>Physics</h3><p>Mechanics, Waves</p><a class="btn" href="#">Open</a></div><div class="card"><h3>Chemistry</h3><p>Organic & Inorganic</p><a class="btn" href="#">Open</a></div><div class="card"><h3>Biology</h3><p>Plants & Animals</p><a class="btn" href="#">Open</a></div></div><h2>💼 BUSINESS ELECTIVES</h2><div class="grid"><div class="card"><h3>Business Mgt</h3><p>Management</p><a class="btn" href="#">Open</a></div><div class="card"><h3>Accounting</h3><p>Financial Acc</p><a class="btn" href="#">Open</a></div><div class="card"><h3>Economics</h3><p>Micro & Macro</p><a class="btn" href="#">Open</a></div><div class="card"><h3>Cost Accounting</h3><p>Costing</p><a class="btn" href="#">Open</a></div></div><h2>🎨 ARTS ELECTIVES</h2><div class="grid"><div class="card"><h3>Government</h3><p>Political Science</p><a class="btn" href="#">Open</a></div><div class="card"><h3>Geography</h3><p>Physical & Human</p><a class="btn" href="#">Open</a></div><div class="card"><h3>Literature</h3><p>African & Non-African</p><a class="btn" href="#">Open</a></div><div class="card"><h3>CRS / IRS</h3><p>Religious Studies</p><a class="btn" href="#">Open</a></div></div></div><footer><b>PASSCO GH</b> - Built by Modoo for Ghanaian Students ©2026<br>passcogh@gmail.com</footer></body></html>
+# PASSCOGH-MODOO production backend
+
+## Upload structure
+
+Extract this ZIP. Keep the folders exactly like this:
+
+PASSCOGH-MODOO/
+- public/index.html
+- data/curriculum.json
+- src/server.js
+- package.json
+- .env.example
+- README.md
+
+Your existing PASSCOGH-MODOO frontend should be copied to:
+public/index.html
+
+## Render
+
+Create a Web Service connected to the GitHub repository.
+
+Build command:
+npm install
+
+Start command:
+npm start
+
+Use Node 20+.
+
+Create a PostgreSQL database and add its connection string as DATABASE_URL.
+
+Add the variables in .env.example to Render's Environment settings. Do NOT commit .env.
+
+## Paystack
+
+Put the server-side Paystack secret key in PAYSTACK_SECRET_KEY.
+
+Webhook:
+https://YOUR-DOMAIN/api/paystack/webhook
+
+Never put the secret key inside index.html.
+
+## Manual MoMo
+
+The backend records a student's transaction ID as pending.
+Admin can list submissions:
+GET /api/admin/payment-submissions
+
+Admin can approve:
+POST /api/admin/payment-submissions/:id/approve
+
+Send the administrator password in the x-admin-key header. Only its bcrypt hash belongs in ADMIN_PASSWORD_HASH.
+
+## Security
+
+Use HTTPS, a strong random JWT_SECRET, a strong admin password, a real PostgreSQL database, and a restricted CORS_ORIGIN. Back up the database.
+
+## Important examination-content rule
+
+Do not call generated questions official WASSCE questions. Only call past questions or marking schemes official after their provenance and permissions have been verified.

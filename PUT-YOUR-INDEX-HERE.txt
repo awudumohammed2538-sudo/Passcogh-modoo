@@ -1,0 +1,1 @@
+Put your existing 3.88 MB index.html in this same folder (the repository root), then upload the contents to GitHub.
