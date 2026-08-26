@@ -54,6 +54,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
+app.app.listen(PORT, "0.0.0.0", () => {
+
   console.log(`PASSCOGH-MODOO backend running on port ${PORT}`);
 });
