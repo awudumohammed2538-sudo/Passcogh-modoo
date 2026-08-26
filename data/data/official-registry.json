@@ -1,0 +1,174 @@
+{
+  "authority": "National Council for Curriculum and Assessment (NaCCA), Ghana",
+  "source_page": "https://nacca.gov.gh/secondary-education-curriculum/",
+  "verified_on": "2026-08-26",
+  "scope": "Senior High School / Secondary Education curriculum registry",
+  "subjects": [
+    {
+      "slug": "additional-mathematics",
+      "name": "Additional Mathematics",
+      "official_source_url": null
+    },
+    {
+      "slug": "agricultural-science",
+      "name": "Agricultural Science",
+      "official_source_url": null
+    },
+    {
+      "slug": "agriculture",
+      "name": "Agriculture",
+      "official_source_url": null
+    },
+    {
+      "slug": "applied-technology",
+      "name": "Applied Technology",
+      "official_source_url": "https://nacca.gov.gh/wp-content/uploads/2025/04/Applied-Technology-Curriculum.pdf"
+    },
+    {
+      "slug": "arabic",
+      "name": "Arabic",
+      "official_source_url": null
+    },
+    {
+      "slug": "art-and-design-foundation",
+      "name": "Art and Design Foundation",
+      "official_source_url": null
+    },
+    {
+      "slug": "art-and-design-studio",
+      "name": "Art and Design Studio",
+      "official_source_url": null
+    },
+    {
+      "slug": "aviation-and-aerospace-engineering",
+      "name": "Aviation and Aerospace Engineering",
+      "official_source_url": null
+    },
+    {
+      "slug": "biology",
+      "name": "Biology",
+      "official_source_url": "https://nacca.gov.gh/wp-content/uploads/2025/04/Biology-Curriculum.pdf"
+    },
+    {
+      "slug": "biomedical-science",
+      "name": "Biomedical Science",
+      "official_source_url": null
+    },
+    {
+      "slug": "chemistry",
+      "name": "Chemistry",
+      "official_source_url": null
+    },
+    {
+      "slug": "computing",
+      "name": "Computing",
+      "official_source_url": null
+    },
+    {
+      "slug": "design-communication-technology",
+      "name": "Design Communication Technology",
+      "official_source_url": null
+    },
+    {
+      "slug": "economics",
+      "name": "Economics",
+      "official_source_url": "https://nacca.gov.gh/wp-content/uploads/2025/04/Economics-Curriculum-Curriculum.pdf"
+    },
+    {
+      "slug": "engineering",
+      "name": "Engineering",
+      "official_source_url": null
+    },
+    {
+      "slug": "english-language",
+      "name": "English Language",
+      "official_source_url": "https://nacca.gov.gh/wp-content/uploads/2025/04/English-Language-Curriculum.pdf"
+    },
+    {
+      "slug": "french",
+      "name": "French",
+      "official_source_url": null
+    },
+    {
+      "slug": "general-science",
+      "name": "General Science",
+      "official_source_url": null
+    },
+    {
+      "slug": "government",
+      "name": "Government",
+      "official_source_url": null
+    },
+    {
+      "slug": "history",
+      "name": "History",
+      "official_source_url": null
+    },
+    {
+      "slug": "ict",
+      "name": "ICT",
+      "official_source_url": "https://nacca.gov.gh/wp-content/uploads/2025/04/ICT-Curriculum.pdf"
+    },
+    {
+      "slug": "literature-in-english",
+      "name": "Literature in English",
+      "official_source_url": null
+    },
+    {
+      "slug": "manufacturing-engineering",
+      "name": "Manufacturing Engineering",
+      "official_source_url": null
+    },
+    {
+      "slug": "mathematics",
+      "name": "Mathematics",
+      "official_source_url": "https://nacca.gov.gh/wp-content/uploads/2025/04/Mathematics-Curriculum.pdf"
+    },
+    {
+      "slug": "performing-arts",
+      "name": "Performing Arts",
+      "official_source_url": null
+    },
+    {
+      "slug": "physical-education-health-core",
+      "name": "Physical Education & Health (Core)",
+      "official_source_url": null
+    },
+    {
+      "slug": "physical-education-health-elective",
+      "name": "Physical Education & Health (Elective)",
+      "official_source_url": null
+    },
+    {
+      "slug": "physics",
+      "name": "Physics",
+      "official_source_url": "https://nacca.gov.gh/wp-content/uploads/2025/04/Physics-Curriculum.pdf"
+    },
+    {
+      "slug": "religious-and-moral-education",
+      "name": "Religious and Moral Education",
+      "official_source_url": null
+    },
+    {
+      "slug": "robotics",
+      "name": "Robotics",
+      "official_source_url": null
+    },
+    {
+      "slug": "social-studies",
+      "name": "Social Studies",
+      "official_source_url": "https://nacca.gov.gh/wp-content/uploads/2025/04/Social-Studies-Curriculum.pdf"
+    },
+    {
+      "slug": "spanish",
+      "name": "Spanish",
+      "official_source_url": null
+    },
+    {
+      "slug": "geography",
+      "name": "Geography",
+      "official_source_url": null
+    }
+  ],
+  "verification_note": "Subject names are taken from the official NaCCA Secondary Education Curriculum page. Where an official direct PDF URL is not included here, the source page is the authoritative starting point and the direct PDF should be downloaded from its current Download button before publishing detailed subject content."
+}
