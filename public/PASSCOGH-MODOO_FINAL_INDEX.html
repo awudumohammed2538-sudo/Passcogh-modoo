@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#087443">
+<meta name="description" content="PASSCOGH-MODOO — Ghanaian learning, revision and skills platform.">
+<title>PASSCOGH-MODOO | Learn • Practise • Pass</title>
+<style>
+:root{--green:#087443;--dark:#063b2b;--gold:#f2bd16;--ink:#10231d;--muted:#66756f;--bg:#f5f8f7;--white:#fff;--shadow:0 12px 35px rgba(5,45,31,.12)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink)}button,input{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
+.nav{position:sticky;top:0;z-index:1000;background:rgba(6,59,43,.98);color:white;box-shadow:0 4px 20px #0002}.nav-inner{max-width:1200px;margin:auto;padding:12px 18px;display:flex;align-items:center;gap:14px}.logo{width:48px;height:48px;object-fit:contain;background:white;border-radius:12px;padding:3px}.brand{font-weight:900;font-size:18px}.brand small{display:block;color:#f7d34b;font-size:11px;margin-top:5px}.navlinks{margin-left:auto;display:flex;gap:6px}.navlinks a,.navlinks button{color:white;background:transparent;border:0;padding:10px 12px;border-radius:10px}.navlinks a:hover,.navlinks button:hover{background:#ffffff1c}.menu{display:none;margin-left:auto;background:transparent;border:1px solid #ffffff66;color:white;padding:9px 12px;border-radius:10px}
+.hero{background:radial-gradient(circle at 90% 10%,#f2bd162f,transparent 25%),linear-gradient(135deg,#063b2b,#087443);color:white;padding:65px 18px 75px}.hero-inner{max-width:1200px;margin:auto;display:grid;grid-template-columns:1.35fr .65fr;gap:40px;align-items:center}.badge{display:inline-block;background:#ffffff1f;border:1px solid #ffffff40;padding:8px 13px;border-radius:999px;font-size:13px;font-weight:700}h1{font-size:clamp(38px,6vw,70px);line-height:1.02;margin:18px 0}h1 span{color:var(--gold)}.hero p{font-size:18px;line-height:1.7;max-width:720px;color:#e8f4ef}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:800}.btn-primary{background:var(--gold);color:#17220e}.btn-light{background:white;color:var(--dark)}.btn-outline{background:transparent;border:1px solid #ffffff80;color:white}
+.creator-card{background:white;color:var(--ink);padding:14px;border-radius:24px;box-shadow:0 20px 50px #0004}.creator-card img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center top;border-radius:18px}.creator-info{padding:14px 6px 4px}.creator-info h3{margin:0 0 5px}.creator-info p{margin:0;color:var(--muted);font-size:14px}
+.section{max-width:1200px;margin:auto;padding:60px 18px}.section-title{text-align:center;margin-bottom:35px}.section-title h2{font-size:34px;margin:0 0 8px}.section-title p{color:var(--muted);margin:0}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.card,.subject,.course,.pdf-card{background:white;padding:22px;border-radius:20px;box-shadow:var(--shadow);border:1px solid #e8efec}.card-icon{width:50px;height:50px;display:grid;place-items:center;border-radius:14px;background:#eaf6f0;font-size:25px}.card h3,.subject h3,.course h3,.pdf-card h3{margin:15px 0 8px}.card p,.subject p,.course p,.pdf-card p{color:var(--muted);line-height:1.6;font-size:14px}
+.search-box{max-width:800px;margin:0 auto 30px;display:flex;gap:10px}.search-box input{flex:1;padding:15px 17px;border:1px solid #d7e3de;border-radius:13px;outline:none;background:white}.subject-grid,.course-grid,.pdf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.subject{border-left:5px solid var(--green)}.subject button,.small-btn{background:var(--green);color:white;border:0;border-radius:10px;padding:10px 14px;font-weight:700}.price{font-size:22px;font-weight:900;color:var(--green)}.free{color:var(--green);font-weight:800}.paid{color:#a36b00;font-weight:800}
+.about{background:white}.about-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:40px;align-items:center}.about-photo{width:100%;border-radius:25px;box-shadow:var(--shadow)}.about-text h2{font-size:36px;margin-top:0}.about-text p{color:var(--muted);line-height:1.8}
+.quote{background:linear-gradient(135deg,#063b2b,#087443);color:white;border-radius:25px;padding:35px;text-align:center}.quote p{font-size:22px;line-height:1.6;margin:0}.quote strong{display:block;margin-top:15px;color:var(--gold)}
+.footer{background:#06291f;color:white;padding:40px 18px}.footer-inner{max-width:1200px;margin:auto;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}.footer-logo{display:flex;gap:12px;align-items:center}.footer-logo img{width:60px;height:60px;object-fit:contain;background:white;border-radius:12px}.footer p{color:#b9cbc4;max-width:560px;line-height:1.6}.copyright{border-top:1px solid #ffffff1a;margin-top:30px;padding-top:20px;text-align:center;color:#9eb3aa;font-size:13px}
+.modal{display:none;position:fixed;inset:0;z-index:2000;background:#000a;padding:20px;align-items:center;justify-content:center}.modal.show{display:flex}.modal-box{background:white;width:min(760px,100%);max-height:90vh;overflow:auto;border-radius:22px;padding:25px;position:relative}.close{position:absolute;right:15px;top:12px;border:0;background:#eef3f1;border-radius:50%;width:38px;height:38px;font-size:20px}.topic-list{display:grid;gap:10px;margin-top:20px}.topic-list button{text-align:left;padding:15px;border:1px solid #dbe7e2;background:#f7faf9;border-radius:12px}.topic-list button:hover{background:#e9f5ef;border-color:var(--green)}.toast{position:fixed;right:18px;bottom:18px;background:#063b2b;color:white;padding:14px 18px;border-radius:12px;box-shadow:var(--shadow);display:none;z-index:3000}.toast.show{display:block}
+.notice{background:#fff8df;border:1px solid #f0d77a;padding:15px;border-radius:14px;margin-bottom:20px;color:#634f00}.certificate{border:3px solid var(--gold);padding:25px;text-align:center;border-radius:18px;background:#fffdf3}.certificate h2{color:var(--green)}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr}.creator-card{max-width:390px;margin:auto}.cards{grid-template-columns:repeat(2,1fr)}.subject-grid,.course-grid,.pdf-grid{grid-template-columns:repeat(2,1fr)}.about-grid{grid-template-columns:1fr}}
+@media(max-width:650px){.navlinks{display:none}.menu{display:block}.navlinks.open{display:flex;position:absolute;left:10px;right:10px;top:72px;background:#063b2b;padding:12px;border-radius:15px;flex-direction:column;align-items:stretch}.cards,.subject-grid,.course-grid,.pdf-grid{grid-template-columns:1fr}.hero{padding-top:45px}.hero p{font-size:16px}.section{padding:45px 15px}.search-box{flex-direction:column}}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+<img class="logo" src="./passco_gh_logo_horizontal.webp" alt="PASSCO GH MODOO logo">
+<div class="brand">PASSCOGH-MODOO<small>LEARN • PRACTISE • PASS</small></div>
+<div class="navlinks" id="navlinks">
+<a href="#home">Home</a><a href="#subjects">Subjects</a><a href="#courses">Courses</a><a href="#resources">Resources</a><a href="#about">About</a><button onclick="openTopics()">Study Now</button>
+</div><button class="menu" onclick="toggleMenu()">☰</button>
+</div></nav>
+
+<header class="hero" id="home"><div class="hero-inner"><div>
+<span class="badge">🇬🇭 Built for Ghanaian Learners</span>
+<h1>Learn smarter.<br>Practise harder.<br><span>Pass with confidence.</span></h1>
+<p>PASSCOGH-MODOO is a Ghanaian learning, revision and skills platform for JHS, SHS/WASSCE, university and college learners — combining curriculum notes, practical work, past questions, exam guides, skills courses and certificates.</p>
+<div class="actions"><a class="btn btn-primary" href="#subjects">Explore Subjects</a><a class="btn btn-light" href="#courses">Learn Skills</a></div>
+</div><div class="creator-card"><img src="./founder_ceo_portrait.webp" alt="Awudu Mohammed Modoo Ayariga"><div class="creator-info"><h3>Awudu Mohammed Modoo Ayariga</h3><p>Founder & Creator • PASSCOGH-MODOO</p></div></div></div></header>
+
+<section class="section" id="resources"><div class="section-title"><h2>Everything You Need to Learn</h2><p>Study, practise, prepare and build useful skills.</p></div><div class="cards">
+<div class="card"><div class="card-icon">📚</div><h3>Curriculum Notes</h3><p>Clear curriculum-focused notes with examples, diagrams, memory tricks and revision points.</p></div>
+<div class="card"><div class="card-icon">📝</div><h3>Past Questions</h3><p>Topic-based practice with answers, explanations and exam-focused guidance.</p></div>
+<div class="card"><div class="card-icon">🧪</div><h3>Practical Preparation</h3><p>Practical concepts, likely practical questions, procedures, observations and answer guides.</p></div>
+<div class="card"><div class="card-icon">🏆</div><h3>Exam Guide</h3><p>Theory and practical strategies designed to help learners approach examinations confidently.</p></div>
+</div></section>
+
+<section class="section" id="subjects"><div class="section-title"><h2>Explore Your Subjects</h2><p>Choose a subject to open its study centre.</p></div><div class="search-box"><input id="subjectSearch" type="search" placeholder="Search for a subject..." oninput="filterSubjects()"></div>
+<div class="subject-grid" id="subjectGrid">
+<div class="subject" data-name="Biology"><h3>🧬 Biology</h3><p>Cells, organisms, genetics, ecology, human biology, practical work and diagrams.</p><button onclick="showSubject('Biology')">Study Biology</button></div>
+<div class="subject" data-name="Chemistry"><h3>⚗️ Chemistry</h3><p>Matter, atoms, bonding, reactions, organic chemistry, calculations and practicals.</p><button onclick="showSubject('Chemistry')">Study Chemistry</button></div>
+<div class="subject" data-name="Physics"><h3>⚡ Physics</h3><p>Mechanics, electricity, waves, heat, matter, calculations and practicals.</p><button onclick="showSubject('Physics')">Study Physics</button></div>
+<div class="subject" data-name="Mathematics"><h3>📐 Mathematics</h3><p>Algebra, geometry, statistics, probability and problem solving.</p><button onclick="showSubject('Mathematics')">Study Mathematics</button></div>
+<div class="subject" data-name="English Language"><h3>📖 English Language</h3><p>Grammar, comprehension, vocabulary, writing and communication.</p><button onclick="showSubject('English Language')">Study English</button></div>
+<div class="subject" data-name="Integrated Science"><h3>🔬 Integrated Science</h3><p>Science concepts, experiments, practical questions and applications.</p><button onclick="showSubject('Integrated Science')">Study Science</button></div>
+<div class="subject" data-name="Social Studies"><h3>🌍 Social Studies</h3><p>Society, citizenship, environment, development and Ghana.</p><button onclick="showSubject('Social Studies')">Study Social Studies</button></div>
+<div class="subject" data-name="ICT"><h3>💻 ICT</h3><p>Computer systems, applications, internet technologies and digital skills.</p><button onclick="showSubject('ICT')">Study ICT</button></div>
+<div class="subject" data-name="Economics"><h3>📊 Economics</h3><p>Markets, production, demand, supply, national income and development.</p><button onclick="showSubject('Economics')">Study Economics</button></div>
+</div></section>
+
+<section class="section" id="courses"><div class="section-title"><h2>🚀 Skills & Certificate Courses</h2><p>Learn valuable skills that can support future study, work and entrepreneurship.</p></div><div class="notice"><strong>Course fee: GH₵20 per course.</strong> Course completion can unlock a certificate. The creator account is intended to receive free access. Payment verification and certificate issuance should be connected to the production backend before real-money use.</div><div class="course-grid">
+<div class="course"><h3>💻 Coding & Programming</h3><p>HTML, CSS, JavaScript, programming logic and building simple websites.</p><div class="price">GH₵20</div><button class="small-btn" onclick="buyCourse('Coding & Programming')">Enroll</button></div>
+<div class="course"><h3>🌐 Web Development</h3><p>Build responsive websites, understand frontend basics and publish projects.</p><div class="price">GH₵20</div><button class="small-btn" onclick="buyCourse('Web Development')">Enroll</button></div>
+<div class="course"><h3>📱 Digital Skills</h3><p>Productivity, online tools, digital communication and responsible internet use.</p><div class="price">GH₵20</div><button class="small-btn" onclick="buyCourse('Digital Skills')">Enroll</button></div>
+<div class="course"><h3>📊 Data & Excel</h3><p>Spreadsheets, formulas, charts, basic data organisation and analysis.</p><div class="price">GH₵20</div><button class="small-btn" onclick="buyCourse('Data & Excel')">Enroll</button></div>
+<div class="course"><h3>🎨 Graphic Design</h3><p>Design principles, digital graphics, branding basics and creative workflows.</p><div class="price">GH₵20</div><button class="small-btn" onclick="buyCourse('Graphic Design')">Enroll</button></div>
+<div class="course"><h3>💼 Entrepreneurship</h3><p>Business ideas, customer value, basic marketing, budgeting and starting small.</p><div class="price">GH₵20</div><button class="small-btn" onclick="buyCourse('Entrepreneurship')">Enroll</button></div>
+<div class="course"><h3>📣 Digital Marketing</h3><p>Content, social media, audience building, online promotion and analytics basics.</p><div class="price">GH₵20</div><button class="small-btn" onclick="buyCourse('Digital Marketing')">Enroll</button></div>
+<div class="course"><h3>🧠 Study & Exam Skills</h3><p>Revision planning, active recall, time management and examination techniques.</p><div class="price">GH₵20</div><button class="small-btn" onclick="buyCourse('Study & Exam Skills')">Enroll</button></div>
+<div class="course"><h3>🤖 AI & Productivity</h3><p>Responsible use of AI tools for learning, research, productivity and creativity.</p><div class="price">GH₵20</div><button class="small-btn" onclick="buyCourse('AI & Productivity')">Enroll</button></div>
+</div></section>
+
+<section class="section"><div class="section-title"><h2>📄 Study Documents</h2><p>Read resources online for free. Downloads can be protected by a per-document fee through the backend.</p></div><div class="pdf-grid">
+<div class="pdf-card"><h3>Biology Revision Pack</h3><p>Online reading: <span class="free">FREE</span><br>Phone download: <span class="paid">Paid</span></p><button class="small-btn" onclick="readPdf('Biology Revision Pack')">Read Online</button> <button class="small-btn" onclick="downloadPdf('Biology Revision Pack')">Download</button></div>
+<div class="pdf-card"><h3>Chemistry Revision Pack</h3><p>Online reading: <span class="free">FREE</span><br>Phone download: <span class="paid">Paid</span></p><button class="small-btn" onclick="readPdf('Chemistry Revision Pack')">Read Online</button> <button class="small-btn" onclick="downloadPdf('Chemistry Revision Pack')">Download</button></div>
+<div class="pdf-card"><h3>WASSCE Exam Guide</h3><p>Online reading: <span class="free">FREE</span><br>Phone download: <span class="paid">Paid</span></p><button class="small-btn" onclick="readPdf('WASSCE Exam Guide')">Read Online</button> <button class="small-btn" onclick="downloadPdf('WASSCE Exam Guide')">Download</button></div>
+</div></section>
+
+<section class="about" id="about"><div class="section"><div class="about-grid"><div><img class="about-photo" src="./founder_ceo_portrait.webp" alt="Awudu Mohammed Modoo Ayariga"></div><div class="about-text"><h2>Meet the Creator</h2><p>PASSCOGH-MODOO was created by <strong>Awudu Mohammed Modoo Ayariga</strong>, with a vision to make quality learning resources easier for Ghanaian students to understand and use.</p><p>The platform combines curriculum learning, diagrams, practical preparation, past questions, exam guidance and valuable skills courses.</p><p><strong>Creator access:</strong> the production backend should recognise the verified creator account and grant free access to resources, downloads and courses.</p></div></div></div></section>
+
+<section class="section"><div class="quote"><p>“Don't study just to remember. Study to understand, practise to improve, and revise to master.”</p><strong>— PASSCOGH-MODOO</strong></div></section>
+
+<footer class="footer"><div class="footer-inner"><div><div class="footer-logo"><img src="./passco_gh_logo_horizontal.webp" alt="PASSCO GH"><div><strong>PASSCOGH-MODOO</strong><br><small>Learn • Practise • Pass</small></div></div><p>A Ghanaian learning, revision and skills platform created to support students on their academic journey.</p></div><div><strong>Quick Links</strong><p><a href="#home">Home</a><br><a href="#subjects">Subjects</a><br><a href="#courses">Courses</a><br><a href="#about">About</a></p></div></div><div class="copyright">© <span id="year"></span> PASSCOGH-MODOO. Created by Awudu Mohammed Modoo Ayariga.</div></footer>
+
+<div class="modal" id="topicModal"><div class="modal-box"><button class="close" onclick="closeTopics()">×</button><h2 id="modalTitle">Start Studying</h2><p id="modalText">Choose an area to begin.</p><div class="topic-list">
+<button onclick="studyAction('Curriculum Notes')">📚 Curriculum Notes</button>
+<button onclick="studyAction('Revision')">🧠 Revision</button>
+<button onclick="studyAction('Past Questions & Answers')">📝 Past Questions & Answers</button>
+<button onclick="studyAction('Practical Questions & Answers')">🧪 Practical Questions & Answers</button>
+<button onclick="studyAction('Theory & Practical Exam Guide')">🏆 Theory & Practical Exam Guide</button>
+</div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const API_BASE="";
+const CREATOR_MODE=false;
+document.getElementById("year").textContent=new Date().getFullYear();
+
+function toggleMenu(){document.getElementById("navlinks").classList.toggle("open")}
+function openTopics(){document.getElementById("topicModal").classList.add("show")}
+function closeTopics(){document.getElementById("topicModal").classList.remove("show")}
+function showSubject(subject){
+ document.getElementById("modalTitle").textContent=subject+" Study Centre";
+ document.getElementById("modalText").textContent="Curriculum notes, diagrams, theory questions, practical questions, answers and exam guidance for "+subject+" will be served here by the backend.";
+ openTopics();
+}
+function studyAction(action){closeTopics();showToast(action+" selected. Connect the resource endpoint in the backend to load the full content.")}
+function filterSubjects(){
+ const q=document.getElementById("subjectSearch").value.toLowerCase().trim();
+ document.querySelectorAll(".subject").forEach(c=>c.style.display=c.dataset.name.toLowerCase().includes(q)?"block":"none");
+}
+function showToast(message){const t=document.getElementById("toast");t.textContent=message;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),3500)}
+function buyCourse(course){
+ if(CREATOR_MODE){showToast("Creator access: "+course+" is FREE.");return}
+ showToast(course+" costs GH₵20. Payment must be verified by the backend before enrolment.");
+}
+function readPdf(pdf){showToast("Opening "+pdf+" for FREE online reading. Ad-supported reading can be enforced by the backend every 15 minutes.");}
+function downloadPdf(pdf){if(CREATOR_MODE){showToast("Creator access: download unlocked for "+pdf);return}showToast("Download access requires payment for this document. Backend payment verification is required.");}
+window.addEventListener("click",e=>{if(e.target===document.getElementById("topicModal"))closeTopics()});
+async function checkBackend(){
+ try{const r=await fetch(API_BASE+"/api/health");if(r.ok)console.log("PASSCOGH-MODOO backend connected.")}
+ catch(e){console.log("Backend not connected yet; frontend remains usable.")}
+}
+checkBackend();
+</script>
+</body>
+</html>
