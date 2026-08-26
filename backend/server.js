@@ -1,42 +1,26 @@
-import express from 'express';
-import helmet from 'helmet';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import { Pool } from 'pg';
-import crypto from 'crypto';
+const express = require("express");
+const path = require("path");
 
-dotenv.config();
-const app=express();
-const PORT=process.env.PORT||3000;
-const FRONTEND_URL=process.env.FRONTEND_URL||'*';
-const JWT_SECRET=process.env.JWT_SECRET||'CHANGE_ME_IN_PRODUCTION';
-const CREATOR_EMAIL=(process.env.CREATOR_EMAIL||'').toLowerCase();
-const PAYSTACK_SECRET_KEY=process.env.PAYSTACK_SECRET_KEY||'';
-const pool=process.env.DATABASE_URL?new Pool({connectionString:process.env.DATABASE_URL,ssl:process.env.DATABASE_URL.includes('localhost')?false:{rejectUnauthorized:false}}):null;
-app.use(helmet());
-app.use(cors({origin:FRONTEND_URL==='*'?true:FRONTEND_URL.split(',').map(x=>x.trim()),credentials:true}));
-app.use(express.json({limit:'5mb'}));
-app.use(express.static('public'));
-const db=async(q,p=[])=>{if(!pool)throw Error('DATABASE_URL not configured');return pool.query(q,p)};
-const token=u=>jwt.sign({id:u.id,email:u.email,role:u.role},JWT_SECRET,{expiresIn:'7d'});
-function auth(req,res,next){const h=req.headers.authorization||'';if(!h.startsWith('Bearer '))return res.status(401).json({error:'Authentication required'});try{req.user=jwt.verify(h.slice(7),JWT_SECRET);next()}catch{return res.status(401).json({error:'Invalid or expired session'})}}
-function creator(req,res,next){if(req.user?.role!=='creator')return res.status(403).json({error:'Creator access required'});next()}
-app.get('/api/health',async(req,res)=>{let database='not-configured';if(pool){try{await db('SELECT 1');database='connected'}catch{database='error'}}res.json({ok:true,service:'PASSCOGH-MODOO backend',database,time:new Date().toISOString()})});
-app.post('/api/auth/register',async(req,res)=>{try{const{name,email,password}=req.body;if(!name||!email||!password||password.length<8)return res.status(400).json({error:'Name, email and password (8+ characters) are required'});const e=email.toLowerCase().trim(),role=e===CREATOR_EMAIL?'creator':'learner',hash=await bcrypt.hash(password,12);const r=await db('INSERT INTO users(name,email,password_hash,role) VALUES($1,$2,$3,$4) RETURNING id,name,email,role,created_at',[name.trim(),e,hash,role]);res.status(201).json({user:r.rows[0],token:token(r.rows[0])})}catch(e){if(e.code==='23505')return res.status(409).json({error:'Email already registered'});console.error(e);res.status(500).json({error:'Registration failed'})}});
-app.post('/api/auth/login',async(req,res)=>{try{const e=String(req.body.email||'').toLowerCase().trim(),r=await db('SELECT * FROM users WHERE email=$1',[e]);if(!r.rowCount)return res.status(401).json({error:'Invalid email or password'});const u=r.rows[0];if(!await bcrypt.compare(req.body.password||'',u.password_hash))return res.status(401).json({error:'Invalid email or password'});const safe={id:u.id,name:u.name,email:u.email,role:u.role,created_at:u.created_at};res.json({user:safe,token:token(safe)})}catch{res.status(500).json({error:'Login failed'})}});
-app.get('/api/me',auth,async(req,res)=>{try{const r=await db('SELECT id,name,email,role,created_at FROM users WHERE id=$1',[req.user.id]);res.json(r.rows[0]||null)}catch{res.status(500).json({error:'Could not load profile'})}});
-app.get('/api/subjects',async(req,res)=>{try{res.json((await db('SELECT id,name,level,description FROM subjects ORDER BY id')).rows)}catch{res.status(500).json({error:'Could not load subjects'})}});
-app.get('/api/subjects/:id/topics',async(req,res)=>{try{res.json((await db('SELECT id,subject_id,title,content,diagram_url FROM topics WHERE subject_id=$1 ORDER BY id',[req.params.id])).rows)}catch{res.status(500).json({error:'Could not load topics'})}});
-app.get('/api/questions',async(req,res)=>{try{const p=[],w=[];if(req.query.subject){p.push(req.query.subject);w.push(`subject_id=$${p.length}`)}if(req.query.type){p.push(req.query.type);w.push(`question_type=$${p.length}`)}p.push(Math.min(Number(req.query.limit)||50,100));res.json((await db(`SELECT id,subject_id,topic_id,question_type,question,options,answer,explanation FROM questions ${w.length?'WHERE '+w.join(' AND '):''} ORDER BY id LIMIT $${p.length}`,p)).rows)}catch{res.status(500).json({error:'Could not load questions'})}});
-app.get('/api/courses',async(req,res)=>{try{res.json((await db('SELECT id,title,description,price_ghs,certificate_enabled FROM courses WHERE published=true ORDER BY id DESC')).rows)}catch{res.status(500).json({error:'Could not load courses'})}});
-app.post('/api/courses/:id/enroll',auth,async(req,res)=>{try{const r=await db('SELECT * FROM courses WHERE id=$1 AND published=true',[req.params.id]);if(!r.rowCount)return res.status(404).json({error:'Course not found'});await db(`INSERT INTO enrollments(user_id,course_id,status) VALUES($1,$2,$3) ON CONFLICT(user_id,course_id) DO NOTHING`,[req.user.id,req.params.id,req.user.role==='creator'?'active':'pending']);res.json({ok:true,creatorAccess:req.user.role==='creator'})}catch{res.status(500).json({error:'Could not enroll'})}});
-app.get('/api/my-courses',auth,async(req,res)=>{try{res.json((await db(`SELECT c.id,c.title,c.description,c.price_ghs,c.certificate_enabled,e.status,e.progress,e.completed_at FROM enrollments e JOIN courses c ON c.id=e.course_id WHERE e.user_id=$1 ORDER BY e.id DESC`,[req.user.id])).rows)}catch{res.status(500).json({error:'Could not load courses'})}});
-app.post('/api/courses/:id/progress',auth,async(req,res)=>{try{const p=Math.max(0,Math.min(100,Number(req.body.progress)||0));await db(`UPDATE enrollments SET progress=$1,status=CASE WHEN $1>=100 THEN 'completed' ELSE status END,completed_at=CASE WHEN $1>=100 THEN NOW() ELSE completed_at END WHERE user_id=$2 AND course_id=$3`,[p,req.user.id,req.params.id]);res.json({ok:true,progress:p})}catch{res.status(500).json({error:'Could not save progress'})}});
-app.post('/api/payments/initialize',auth,async(req,res)=>{try{if(req.user.role==='creator')return res.json({creatorAccess:true,message:'Creator access is free'});if(!PAYSTACK_SECRET_KEY)return res.status(503).json({error:'Payment service not configured yet'});const amount=Math.round(Number(req.body.amountGhs)*100);if(!amount)return res.status(400).json({error:'Invalid amount'});const reference=`PASSCO-${Date.now()}-${crypto.randomBytes(4).toString('hex')}`;const r=await fetch('https://api.paystack.co/transaction/initialize',{method:'POST',headers:{Authorization:`Bearer ${PAYSTACK_SECRET_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({email:req.user.email,amount,reference,callback_url:req.body.callbackUrl,metadata:{userId:req.user.id,itemType:req.body.itemType,itemId:req.body.itemId}})});const d=await r.json();if(!r.ok||!d.status)return res.status(502).json({error:'Payment initialization failed'});await db('INSERT INTO payments(user_id,item_type,item_id,amount_ghs,reference,status) VALUES($1,$2,$3,$4,$5,$6)',[req.user.id,req.body.itemType,req.body.itemId,Number(req.body.amountGhs),reference,'pending']);res.json({authorization_url:d.data.authorization_url,reference})}catch(e){console.error(e);res.status(500).json({error:'Payment initialization failed'})}});
-app.get('/api/payments/verify/:reference',auth,async(req,res)=>{try{if(!PAYSTACK_SECRET_KEY)return res.status(503).json({error:'Payment service not configured'});const r=await fetch(`https://api.paystack.co/transaction/verify/${encodeURIComponent(req.params.reference)}`,{headers:{Authorization:`Bearer ${PAYSTACK_SECRET_KEY}`}}),d=await r.json();if(!r.ok||!d.status)return res.status(400).json({error:'Verification failed'});const paid=d.data.status==='success';await db('UPDATE payments SET status=$1,verified_at=CASE WHEN $1=\'success\' THEN NOW() ELSE verified_at END WHERE reference=$2 AND user_id=$3',[paid?'success':d.data.status,req.params.reference,req.user.id]);res.json({paid,status:d.data.status,reference:req.params.reference})}catch{res.status(500).json({error:'Verification failed'})}});
-app.post('/api/certificates/issue',auth,async(req,res)=>{try{const r=await db(`SELECT e.*,c.title,c.certificate_enabled FROM enrollments e JOIN courses c ON c.id=e.course_id WHERE e.user_id=$1 AND e.course_id=$2`,[req.user.id,req.body.courseId]);if(!r.rowCount)return res.status(404).json({error:'Enrollment not found'});const e=r.rows[0];if(!e.certificate_enabled||e.progress<100)return res.status(400).json({error:'Complete the course first'});const old=await db('SELECT * FROM certificates WHERE user_id=$1 AND course_id=$2',[req.user.id,req.body.courseId]);if(old.rowCount)return res.json(old.rows[0]);const no=`PASSCO-${new Date().getFullYear()}-${crypto.randomBytes(5).toString('hex').toUpperCase()}`;res.status(201).json((await db('INSERT INTO certificates(user_id,course_id,certificate_no) VALUES($1,$2,$3) RETURNING *',[req.user.id,req.body.courseId,no])).rows[0])}catch{res.status(500).json({error:'Could not issue certificate'})}});
-app.get('/api/creator/dashboard',auth,creator,async(req,res)=>{try{const [u,c,p,x]=await Promise.all([db('SELECT COUNT(*)::int count FROM users'),db('SELECT COUNT(*)::int count FROM courses'),db("SELECT COALESCE(SUM(amount_ghs),0) total FROM payments WHERE status='success'"),db('SELECT COUNT(*)::int count FROM certificates')]);res.json({users:u.rows[0].count,courses:c.rows[0].count,successfulPaymentsGhs:p.rows[0].total,certificates:x.rows[0].count})}catch{res.status(500).json({error:'Could not load dashboard'})}});
-app.get('*',(req,res)=>res.sendFile(process.cwd()+'/public/index.html'));
-app.listen(PORT,()=>console.log(`PASSCOGH-MODOO backend running on ${PORT}`));
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Serve the website files from the public folder
+app.use(express.static(path.join(__dirname, "../public")));
+
+// Homepage
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
+
+// Health check
+app.get("/api/health", (req, res) => {
+  res.json({
+    success: true,
+    message: "PASSCOGH-MODOO backend is running"
+  });
+});
+
+// Start server
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`PASSCOGH-MODOO running on port ${PORT}`);
+});
