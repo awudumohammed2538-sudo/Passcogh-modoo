@@ -1,0 +1,10 @@
+{
+  "project": "PASSCOGH-MODOO",
+  "verified_source": "NaCCA Secondary Education Curriculum",
+  "verified_source_url": "https://nacca.gov.gh/secondary-education-curriculum/",
+  "verified_date": "2026-08-26",
+  "official_subject_registry_count": 33,
+  "official_direct_pdf_urls_in_registry": 8,
+  "important": "This package verifies the official subject registry and source links. It does not copy the full copyrighted text of every curriculum PDF into JSON. Detailed PASSCOGH notes should be authored against each official PDF and clearly labelled as PASSCOGH-MODOO notes.",
+  "real_wassce_policy": "No generated question is labelled as real WASSCE. Real questions require source verification."
+}
