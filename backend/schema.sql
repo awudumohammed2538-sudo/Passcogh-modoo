@@ -1,10 +1,104 @@
-CREATE TABLE IF NOT EXISTS users(id BIGSERIAL PRIMARY KEY,name TEXT NOT NULL,email TEXT UNIQUE NOT NULL,password_hash TEXT NOT NULL,role TEXT NOT NULL DEFAULT 'learner' CHECK(role IN('learner','creator')),created_at TIMESTAMPTZ DEFAULT NOW());
-CREATE TABLE IF NOT EXISTS subjects(id BIGSERIAL PRIMARY KEY,name TEXT NOT NULL,level TEXT,description TEXT);
-CREATE TABLE IF NOT EXISTS topics(id BIGSERIAL PRIMARY KEY,subject_id BIGINT REFERENCES subjects(id) ON DELETE CASCADE,title TEXT NOT NULL,content TEXT NOT NULL,diagram_url TEXT);
-CREATE TABLE IF NOT EXISTS questions(id BIGSERIAL PRIMARY KEY,subject_id BIGINT REFERENCES subjects(id) ON DELETE SET NULL,topic_id BIGINT REFERENCES topics(id) ON DELETE SET NULL,question_type TEXT NOT NULL DEFAULT 'theory',question TEXT NOT NULL,options JSONB,answer TEXT,explanation TEXT);
-CREATE TABLE IF NOT EXISTS courses(id BIGSERIAL PRIMARY KEY,title TEXT NOT NULL,description TEXT,price_ghs NUMERIC(10,2) DEFAULT 20,certificate_enabled BOOLEAN DEFAULT TRUE,published BOOLEAN DEFAULT FALSE);
-CREATE TABLE IF NOT EXISTS enrollments(id BIGSERIAL PRIMARY KEY,user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,course_id BIGINT REFERENCES courses(id) ON DELETE CASCADE,status TEXT DEFAULT 'pending',progress INTEGER DEFAULT 0,completed_at TIMESTAMPTZ,UNIQUE(user_id,course_id));
-CREATE TABLE IF NOT EXISTS payments(id BIGSERIAL PRIMARY KEY,user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,item_type TEXT NOT NULL,item_id TEXT NOT NULL,amount_ghs NUMERIC(10,2) NOT NULL,reference TEXT UNIQUE NOT NULL,status TEXT DEFAULT 'pending',verified_at TIMESTAMPTZ);
-CREATE TABLE IF NOT EXISTS certificates(id BIGSERIAL PRIMARY KEY,user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,course_id BIGINT REFERENCES courses(id) ON DELETE CASCADE,certificate_no TEXT UNIQUE NOT NULL,issued_at TIMESTAMPTZ DEFAULT NOW(),UNIQUE(user_id,course_id));
-INSERT INTO subjects(name,level,description) VALUES
-('Biology','SHS','Living organisms, cells, genetics, ecology and human biology.'),('Chemistry','SHS','Matter, atoms, bonding, reactions, organic chemistry and calculations.'),('Physics','SHS','Mechanics, electricity, waves, heat, matter and modern physics.'),('Mathematics','JHS/SHS','Algebra, geometry, statistics, probability and problem solving.'),('English Language','JHS/SHS','Grammar, comprehension, vocabulary, writing and communication.'),('Integrated Science','JHS','Science concepts and applications for Ghanaian learners.'),('Social Studies','JHS/SHS','Society, citizenship, environment, development and Ghana.'),('ICT','JHS/SHS','Computer systems, applications, internet technologies and digital skills.'),('Economics','SHS','Markets, production, demand, supply, national income and development.') ON CONFLICT DO NOTHING;
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT UNIQUE NOT NULL,
+    name TEXT,
+    role TEXT NOT NULL DEFAULT 'learner'
+        CHECK (role IN ('learner', 'creator')),
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS course_enrolments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    course_id TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'active',
+    progress INTEGER NOT NULL DEFAULT 0
+        CHECK (progress >= 0 AND progress <= 100),
+    completed_at TEXT,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    UNIQUE (user_id, course_id),
+
+    FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS payments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    reference TEXT UNIQUE NOT NULL,
+    user_id INTEGER NOT NULL,
+    item_type TEXT NOT NULL,
+    item_id TEXT NOT NULL,
+    amount INTEGER NOT NULL,
+    currency TEXT NOT NULL DEFAULT 'GHS',
+    status TEXT NOT NULL DEFAULT 'pending',
+    provider TEXT NOT NULL DEFAULT 'paystack',
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    verified_at TEXT,
+
+    FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS reading_sessions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    pdf_id TEXT NOT NULL,
+    started_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    expires_at TEXT NOT NULL,
+
+    FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS pdf_purchases (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    pdf_id TEXT NOT NULL,
+    payment_reference TEXT UNIQUE NOT NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS certificates (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    certificate_no TEXT UNIQUE NOT NULL,
+    user_id INTEGER NOT NULL,
+    course_id TEXT NOT NULL,
+    issued_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    UNIQUE (user_id, course_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_users_email
+    ON users(email);
+
+CREATE INDEX IF NOT EXISTS idx_enrolments_user
+    ON course_enrolments(user_id);
+
+CREATE INDEX IF NOT EXISTS idx_enrolments_course
+    ON course_enrolments(course_id);
+
+CREATE INDEX IF NOT EXISTS idx_payments_user
+    ON payments(user_id);
+
+CREATE INDEX IF NOT EXISTS idx_payments_reference
+    ON payments(reference);
+
+CREATE INDEX IF NOT EXISTS idx_pdf_purchases_user
+    ON pdf_purchases(user_id);
+
+CREATE INDEX IF NOT EXISTS idx_certificates_number
+    ON certificates(certificate_no);
