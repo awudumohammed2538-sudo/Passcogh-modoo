@@ -123,6 +123,797 @@ async function checkBackend(){
  catch(e){console.log("Backend not connected yet; frontend remains usable.")}
 }
 checkBackend();
+<script>
+/* =========================================================
+   PASSCOGH-MODOO FRONTEND ↔ BACKEND CONNECTION
+   ========================================================= */
+
+const API_BASE = "";
+const CREATOR_EMAIL = "awudumohammedmodoo@gmail.com";
+
+let SUBJECTS = [];
+let COURSES = [];
+let PDFS = [];
+
+const savedEmail =
+  localStorage.getItem("passcogh_email") || "";
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+/* =========================================================
+   BASIC UI
+   ========================================================= */
+
+function toggleMenu() {
+  document.getElementById("navlinks").classList.toggle("open");
+}
+
+function openTopics() {
+  document.getElementById("topicModal").classList.add("show");
+}
+
+function closeTopics() {
+  document.getElementById("topicModal").classList.remove("show");
+}
+
+function showToast(message) {
+  const t = document.getElementById("toast");
+  t.textContent = message;
+  t.classList.add("show");
+
+  setTimeout(() => {
+    t.classList.remove("show");
+  }, 3500);
+}
+
+/* =========================================================
+   API HELPER
+   ========================================================= */
+
+async function api(path, options = {}) {
+
+  const headers = {
+    "Content-Type": "application/json",
+    ...(options.headers || {})
+  };
+
+  const email =
+    localStorage.getItem("passcogh_email") || "";
+
+  if (email) {
+    headers["x-user-email"] = email;
+  }
+
+  const response = await fetch(
+    API_BASE + path,
+    {
+      ...options,
+      headers
+    }
+  );
+
+  let data = {};
+
+  try {
+    data = await response.json();
+  } catch {
+    data = {};
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || `Server error ${response.status}`
+    );
+  }
+
+  return data;
+}
+
+/* =========================================================
+   EMAIL / LEARNER IDENTITY
+   ========================================================= */
+
+function getEmail() {
+
+  let email =
+    localStorage.getItem("passcogh_email");
+
+  if (!email) {
+
+    email = prompt(
+      "Enter your email address to continue:"
+    );
+
+    if (!email) {
+      throw new Error("Email is required.");
+    }
+
+    email = email.trim().toLowerCase();
+
+    localStorage.setItem(
+      "passcogh_email",
+      email
+    );
+  }
+
+  return email;
+}
+
+/* =========================================================
+   BACKEND HEALTH
+   ========================================================= */
+
+async function checkBackend() {
+
+  try {
+
+    const data =
+      await api("/api/health");
+
+    console.log(
+      "PASSCOGH-MODOO BACKEND CONNECTED:",
+      data
+    );
+
+    return true;
+
+  } catch (error) {
+
+    console.error(
+      "Backend connection failed:",
+      error
+    );
+
+    showToast(
+      "Backend is currently unavailable."
+    );
+
+    return false;
+  }
+}
+
+/* =========================================================
+   LOAD SUBJECTS
+   ========================================================= */
+
+async function loadSubjects() {
+
+  try {
+
+    const data =
+      await api("/api/subjects");
+
+    SUBJECTS =
+      data.subjects || [];
+
+    console.log(
+      "Subjects loaded:",
+      SUBJECTS
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    showToast(
+      "Could not load subjects from backend."
+    );
+  }
+}
+
+/* =========================================================
+   SUBJECT SEARCH
+   ========================================================= */
+
+function filterSubjects() {
+
+  const q =
+    document
+      .getElementById("subjectSearch")
+      .value
+      .toLowerCase()
+      .trim();
+
+  document
+    .querySelectorAll(".subject")
+    .forEach(card => {
+
+      const name =
+        card.dataset.name
+          .toLowerCase();
+
+      card.style.display =
+        name.includes(q)
+          ? "block"
+          : "none";
+    });
+}
+
+/* =========================================================
+   SUBJECT STUDY CENTRE
+   ========================================================= */
+
+async function showSubject(subjectName) {
+
+  const subject =
+    SUBJECTS.find(
+      s =>
+        s.name.toLowerCase() ===
+        subjectName.toLowerCase()
+    );
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent =
+    subjectName + " Study Centre";
+
+  if (!subject) {
+
+    document.getElementById(
+      "modalText"
+    ).textContent =
+      "This subject is not yet available in the backend.";
+
+    openTopics();
+    return;
+  }
+
+  document.getElementById(
+    "modalText"
+  ).innerHTML = `
+    <strong>${subject.name}</strong><br>
+    Level: ${subject.level}<br><br>
+    Choose an area below.
+  `;
+
+  const list =
+    document.querySelector(".topic-list");
+
+  list.innerHTML = "";
+
+  subject.sections.forEach(section => {
+
+    const button =
+      document.createElement("button");
+
+    button.textContent =
+      "📚 " + section;
+
+    button.onclick =
+      () => studyAction(
+        section,
+        subject
+      );
+
+    list.appendChild(button);
+  });
+
+  openTopics();
+}
+
+/* =========================================================
+   STUDY ACTION
+   ========================================================= */
+
+function studyAction(
+  action,
+  subject = null
+) {
+
+  closeTopics();
+
+  const subjectText =
+    subject
+      ? ` for ${subject.name}`
+      : "";
+
+  showToast(
+    `${action}${subjectText} selected.`
+  );
+
+  console.log(
+    "Study request:",
+    {
+      action,
+      subject
+    }
+  );
+}
+
+/* =========================================================
+   LOAD COURSES
+   ========================================================= */
+
+async function loadCourses() {
+
+  try {
+
+    const data =
+      await api("/api/courses");
+
+    COURSES =
+      data.courses || [];
+
+    console.log(
+      "Courses loaded:",
+      COURSES
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    showToast(
+      "Could not load courses."
+    );
+  }
+}
+
+/* =========================================================
+   FIND COURSE
+   ========================================================= */
+
+function findCourseByTitle(title) {
+
+  const clean =
+    title
+      .toLowerCase()
+      .replace(/&/g, "and")
+      .trim();
+
+  return COURSES.find(course => {
+
+    const courseTitle =
+      course.title
+        .toLowerCase()
+        .replace(/&/g, "and")
+        .trim();
+
+    return (
+      courseTitle === clean ||
+      courseTitle.includes(clean) ||
+      clean.includes(courseTitle)
+    );
+  });
+}
+
+/* =========================================================
+   COURSE PAYMENT
+   ========================================================= */
+
+async function buyCourse(title) {
+
+  try {
+
+    const course =
+      findCourseByTitle(title);
+
+    if (!course) {
+
+      showToast(
+        "Course is not available in the backend yet."
+      );
+
+      return;
+    }
+
+    const email =
+      getEmail();
+
+    showToast(
+      "Checking course access..."
+    );
+
+    const access =
+      await api(
+        `/api/courses/${course.id}/access`
+      );
+
+    if (access.access) {
+
+      showToast(
+        "You already have access to this course."
+      );
+
+      return;
+    }
+
+    const result =
+      await api(
+        "/api/payments/course",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            courseId:
+              course.id,
+
+            email
+          })
+        }
+      );
+
+    if (
+      result.success &&
+      result.paymentRequired &&
+      result.authorizationUrl
+    ) {
+
+      showToast(
+        "Opening secure payment..."
+      );
+
+      window.location.href =
+        result.authorizationUrl;
+
+      return;
+    }
+
+    if (
+      result.success &&
+      result.enrolled
+    ) {
+
+      showToast(
+        "Course access granted."
+      );
+
+      return;
+    }
+
+    showToast(
+      result.message ||
+      "Unable to start payment."
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    showToast(
+      error.message ||
+      "Course payment failed."
+    );
+  }
+}
+
+/* =========================================================
+   LOAD PDF LIBRARY
+   ========================================================= */
+
+async function loadPDFs() {
+
+  try {
+
+    const data =
+      await api("/api/pdfs");
+
+    PDFS =
+      data.pdfs || [];
+
+    console.log(
+      "PDF library loaded:",
+      PDFS
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    showToast(
+      "Could not load study documents."
+    );
+  }
+}
+
+/* =========================================================
+   FIND PDF
+   ========================================================= */
+
+function findPDFByTitle(title) {
+
+  const clean =
+    title
+      .toLowerCase()
+      .replace(/revision pack/g, "")
+      .trim();
+
+  return PDFS.find(pdf => {
+
+    const pdfTitle =
+      pdf.title
+        .toLowerCase();
+
+    return (
+      pdfTitle.includes(clean) ||
+      clean.includes(
+        pdfTitle.replace(
+          "complete ",
+          ""
+        )
+      )
+    );
+  });
+}
+
+/* =========================================================
+   FREE ONLINE READING
+   ========================================================= */
+
+async function readPdf(title) {
+
+  try {
+
+    const pdf =
+      findPDFByTitle(title);
+
+    if (!pdf) {
+
+      showToast(
+        "This document is not yet available in the backend."
+      );
+
+      return;
+    }
+
+    const email =
+      getEmail();
+
+    const result =
+      await api(
+        "/api/reading/start",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            pdfId:
+              pdf.id,
+
+            email
+          })
+        }
+      );
+
+    if (result.success) {
+
+      showToast(
+        "Online reading opened — FREE."
+      );
+
+      /*
+       * The backend currently creates the
+       * reading session. The actual PDF/content
+       * endpoint will be connected when the
+       * document files are added.
+       */
+
+      document.getElementById(
+        "modalTitle"
+      ).textContent =
+        pdf.title;
+
+      document.getElementById(
+        "modalText"
+      ).innerHTML = `
+        <div class="notice">
+          <strong>FREE ONLINE READING</strong>
+        </div>
+
+        <p>
+          ${pdf.title}
+        </p>
+
+        <p>
+          Your reading session has started.
+        </p>
+
+        <p>
+          ${result.advertisementsEnabled
+            ? "Advertisements may appear during free reading."
+            : "Creator access: advertisements are disabled."
+          }
+        </p>
+      `;
+
+      document.querySelector(
+        ".topic-list"
+      ).innerHTML = "";
+
+      openTopics();
+    }
+
+  } catch (error) {
+
+    console.error(error);
+
+    showToast(
+      error.message ||
+      "Unable to open document."
+    );
+  }
+}
+
+/* =========================================================
+   PAID PDF DOWNLOAD
+   ========================================================= */
+
+async function downloadPdf(title) {
+
+  try {
+
+    const pdf =
+      findPDFByTitle(title);
+
+    if (!pdf) {
+
+      showToast(
+        "This document is not available in the backend."
+      );
+
+      return;
+    }
+
+    const email =
+      getEmail();
+
+    const access =
+      await api(
+        `/api/pdfs/${pdf.id}/download-access`
+      );
+
+    if (access.allowed) {
+
+      showToast(
+        "Download access granted."
+      );
+
+      /*
+       * Actual protected file URL should be
+       * supplied here once the PDF storage
+       * location is connected.
+       */
+
+      return;
+    }
+
+    const payment =
+      await api(
+        "/api/payments/pdf",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            pdfId:
+              pdf.id,
+
+            email
+          })
+        }
+      );
+
+    if (
+      payment.success &&
+      payment.paymentRequired &&
+      payment.authorizationUrl
+    ) {
+
+      showToast(
+        "Opening secure PDF payment..."
+      );
+
+      window.location.href =
+        payment.authorizationUrl;
+
+      return;
+    }
+
+    showToast(
+      payment.message ||
+      "Payment required for download."
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    showToast(
+      error.message ||
+      "Download request failed."
+    );
+  }
+}
+
+/* =========================================================
+   CREATOR ACCESS CHECK
+   ========================================================= */
+
+async function checkCreatorAccess() {
+
+  try {
+
+    const email =
+      localStorage.getItem(
+        "passcogh_email"
+      );
+
+    if (!email) return;
+
+    const result =
+      await api(
+        "/api/creator/access"
+      );
+
+    if (result.creator) {
+
+      showToast(
+        "Creator access active — PASSCOGH-MODOO."
+      );
+    }
+
+  } catch (error) {
+
+    console.log(
+      "Creator access check skipped."
+    );
+  }
+}
+
+/* =========================================================
+   INITIALISE EVERYTHING
+   ========================================================= */
+
+async function initialisePASSCOGH() {
+
+  showToast(
+    "Connecting PASSCOGH-MODOO..."
+  );
+
+  const connected =
+    await checkBackend();
+
+  if (!connected) return;
+
+  await Promise.all([
+    loadSubjects(),
+    loadCourses(),
+    loadPDFs()
+  ]);
+
+  await checkCreatorAccess();
+
+  console.log(
+    "PASSCOGH-MODOO frontend ↔ backend connection ready."
+  );
+}
+
+/* =========================================================
+   CLOSE MODAL
+   ========================================================= */
+
+window.addEventListener(
+  "click",
+  event => {
+
+    const modal =
+      document.getElementById(
+        "topicModal"
+      );
+
+    if (
+      event.target === modal
+    ) {
+      closeTopics();
+    }
+  }
+);
+
+/* =========================================================
+   START
+   ========================================================= */
+
+initialisePASSCOGH();
+
 </script>
 </body>
 </html>
