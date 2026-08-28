@@ -93,37 +93,6 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const API_BASE="";
-const CREATOR_MODE=false;
-document.getElementById("year").textContent=new Date().getFullYear();
-
-function toggleMenu(){document.getElementById("navlinks").classList.toggle("open")}
-function openTopics(){document.getElementById("topicModal").classList.add("show")}
-function closeTopics(){document.getElementById("topicModal").classList.remove("show")}
-function showSubject(subject){
- document.getElementById("modalTitle").textContent=subject+" Study Centre";
- document.getElementById("modalText").textContent="Curriculum notes, diagrams, theory questions, practical questions, answers and exam guidance for "+subject+" will be served here by the backend.";
- openTopics();
-}
-function studyAction(action){closeTopics();showToast(action+" selected. Connect the resource endpoint in the backend to load the full content.")}
-function filterSubjects(){
- const q=document.getElementById("subjectSearch").value.toLowerCase().trim();
- document.querySelectorAll(".subject").forEach(c=>c.style.display=c.dataset.name.toLowerCase().includes(q)?"block":"none");
-}
-function showToast(message){const t=document.getElementById("toast");t.textContent=message;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),3500)}
-function buyCourse(course){
- if(CREATOR_MODE){showToast("Creator access: "+course+" is FREE.");return}
- showToast(course+" costs GH₵20. Payment must be verified by the backend before enrolment.");
-}
-function readPdf(pdf){showToast("Opening "+pdf+" for FREE online reading. Ad-supported reading can be enforced by the backend every 15 minutes.");}
-function downloadPdf(pdf){if(CREATOR_MODE){showToast("Creator access: download unlocked for "+pdf);return}showToast("Download access requires payment for this document. Backend payment verification is required.");}
-window.addEventListener("click",e=>{if(e.target===document.getElementById("topicModal"))closeTopics()});
-async function checkBackend(){
- try{const r=await fetch(API_BASE+"/api/health");if(r.ok)console.log("PASSCOGH-MODOO backend connected.")}
- catch(e){console.log("Backend not connected yet; frontend remains usable.")}
-}
-checkBackend();
-<script>
 /* =========================================================
    PASSCOGH-MODOO FRONTEND ↔ BACKEND CONNECTION
    ========================================================= */
