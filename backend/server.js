@@ -15,7 +15,7 @@ const PUBLIC_DIR = path.join(__dirname, "../public");
 const DATA_DIR = path.join(__dirname, "../data");
 const STORAGE_DIR = path.join(__dirname, "../storage");
 const PDF_DIR = path.join(STORAGE_DIR, "pdfs");
-const CURRICULUM_FILE = path.join(DATA_DIR, "passcogh_carriculum.json");
+const CURRICULUM_FILE = path.join(DATA_DIR, "passcogh_curriculum.json");
 
 for (const dir of [DATA_DIR, STORAGE_DIR, PDF_DIR]) {
   fs.mkdirSync(dir, { recursive: true });
