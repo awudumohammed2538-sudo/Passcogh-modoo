@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+<rect width="1200" height="700" fill="#fff"/>
+<rect x="40" y="35" width="1120" height="90" rx="18" fill="#0b6b43"/>
+<text x="70" y="78" font-family="Arial" font-size="22" fill="white">SHS3 • GEOG-SHS3</text>
+<text x="70" y="108" font-family="Arial" font-size="30" font-weight="bold" fill="white">Tourism</text>
+<rect x="100" y="190" width="1000" height="110" rx="20" fill="#eef7f2" stroke="#0b6b43" stroke-width="3"/>
+<text x="600" y="235" text-anchor="middle" font-family="Arial" font-size="25" font-weight="bold">CORE IDEA</text>
+<text x="600" y="272" text-anchor="middle" font-family="Arial" font-size="20">Understand the main concept → identify its parts → explain relationships</text>
+<line x1="600" y1="300" x2="600" y2="350" stroke="#333" stroke-width="4"/>
+<polygon points="600,370 585,345 615,345" fill="#333"/>
+<rect x="70" y="390" width="320" height="170" rx="18" fill="#fafafa" stroke="#777" stroke-width="2"/>
+<text x="230" y="435" text-anchor="middle" font-family="Arial" font-size="23" font-weight="bold">1. IDENTIFY</text>
+<text x="230" y="475" text-anchor="middle" font-family="Arial" font-size="18">Key terms</text>
+<text x="230" y="505" text-anchor="middle" font-family="Arial" font-size="18">Parts / variables</text>
+<text x="230" y="535" text-anchor="middle" font-family="Arial" font-size="18">What to observe</text>
+<rect x="440" y="390" width="320" height="170" rx="18" fill="#fafafa" stroke="#777" stroke-width="2"/>
+<text x="600" y="435" text-anchor="middle" font-family="Arial" font-size="23" font-weight="bold">2. EXPLAIN</text>
+<text x="600" y="475" text-anchor="middle" font-family="Arial" font-size="18">Sequence / mechanism</text>
+<text x="600" y="505" text-anchor="middle" font-family="Arial" font-size="18">Cause → effect</text>
+<text x="600" y="535" text-anchor="middle" font-family="Arial" font-size="18">Real-life application</text>
+<rect x="810" y="390" width="320" height="170" rx="18" fill="#fafafa" stroke="#777" stroke-width="2"/>
+<text x="970" y="435" text-anchor="middle" font-family="Arial" font-size="23" font-weight="bold">3. APPLY</text>
+<text x="970" y="475" text-anchor="middle" font-family="Arial" font-size="18">Worked example</text>
+<text x="970" y="505" text-anchor="middle" font-family="Arial" font-size="18">Exam/practical link</text>
+<text x="970" y="535" text-anchor="middle" font-family="Arial" font-size="18">Common error check</text>
+<text x="600" y="630" text-anchor="middle" font-family="Arial" font-size="19" fill="#444">PASSCOGH-MODOO • Topic visual asset • GEOG-SHS3-012</text>
+</svg>
