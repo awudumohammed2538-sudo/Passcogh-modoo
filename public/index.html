@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#087443">
+<meta name="description" content="PASSCOGH-MODOO — Learn, Prepare and Choose. Educational learning, examination preparation, courses, materials and tertiary guidance for Ghanaian learners.">
+<title>PASSCOGH-MODOO | Learn • Prepare • Choose</title>
+
+<style>
+:root{
+  --green:#087443;--green-dark:#04542f;--green-soft:#eaf6ef;
+  --gold:#f2c400;--gold-soft:#fffbea;--red:#c51d2d;
+  --navy:#101b33;--ink:#172033;--muted:#647084;
+  --bg:#f5f8f7;--card:#fff;--line:#dfe7e3;
+  --shadow:0 10px 30px rgba(15,35,28,.08);--radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.hidden{display:none!important}
+.wrap{width:min(1180px,94%);margin:auto}
+
+header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.header-inner{min-height:72px;display:flex;align-items:center;gap:14px;justify-content:space-between}
+.brand{display:flex;align-items:center;min-width:0;gap:10px}
+.brand-logo{width:52px;height:52px;object-fit:contain;border-radius:12px}
+.brand-name{font-size:18px;font-weight:900;color:var(--green);letter-spacing:.4px;white-space:nowrap}
+.brand-sub{font-size:11px;color:var(--muted);white-space:nowrap}
+nav{display:flex;gap:3px;align-items:center;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+.nav-btn{border:0;background:transparent;color:var(--ink);font-weight:700;padding:10px 10px;border-radius:10px;white-space:nowrap}
+.nav-btn:hover,.nav-btn.active{background:var(--green-soft);color:var(--green)}
+.menu-btn{display:none;border:1px solid var(--line);background:#fff;border-radius:12px;padding:8px 12px;font-size:21px}
+
+main{min-height:65vh}
+.hero{margin-top:22px;border-radius:26px;overflow:hidden;background:linear-gradient(135deg,#064f32,#0b8052 55%,#12365e);color:#fff;box-shadow:var(--shadow)}
+.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;align-items:center;gap:25px;padding:42px}
+.hero h1{font-size:clamp(34px,5vw,60px);line-height:1.04;margin-bottom:16px;letter-spacing:-1.5px}
+.hero h1 span{color:#ffd900}
+.hero p{font-size:17px;max-width:720px;color:#eefcf5;margin-bottom:22px}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.12);padding:7px 11px;border-radius:20px;margin-bottom:14px;font-weight:800}
+.hero-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:12px 17px;font-weight:800;transition:.2s}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--gold);color:#151515}
+.btn-light{background:#fff;color:var(--green-dark)}
+.btn-green{background:var(--green);color:#fff}
+.btn-danger{background:#fff0f0;color:var(--red)}
+.hero-logo{width:min(100%,390px);margin:auto;background:#fff;border-radius:20px;padding:18px}
+
+.section{padding:42px 0 8px}
+.section-title{font-size:28px;margin-bottom:8px;color:var(--navy)}
+.section-intro{color:var(--muted);margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.card h3{margin-bottom:7px;color:var(--navy)}
+.card p{color:var(--muted)}
+.card-action{margin-top:15px;background:var(--green-soft);color:var(--green-dark);border:0;border-radius:10px;padding:10px 13px;font-weight:800}
+.card-action:hover{background:#d8efe1}
+.icon{font-size:31px;margin-bottom:8px}
+
+.search-box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:20px;box-shadow:var(--shadow)}
+.search-box input,.search-box select,.form-control{width:100%;border:1px solid #ccd8d3;border-radius:12px;padding:13px;outline:none;background:#fff}
+.search-box input:focus,.form-control:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(8,116,67,.1)}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-weight:800;margin-bottom:5px;color:var(--navy)}
+.form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+
+.breadcrumb{display:flex;flex-wrap:wrap;gap:7px;align-items:center;color:var(--muted);font-size:14px;margin-bottom:15px}
+.back-btn{border:0;background:var(--green-soft);color:var(--green-dark);padding:9px 13px;border-radius:10px;font-weight:800}
+
+.topic-card,.lesson,.material-card,.course-card,.institution-card,.career-card,.exam-card,.admin-card{
+  background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)
+}
+.topic-card{margin-bottom:12px}
+.topic-card h3,.course-card h3,.institution-card h3,.career-card h3,.exam-card h3{color:var(--green-dark);margin-bottom:6px}
+.topic-card button,.course-card button{margin-top:10px;border:0;background:var(--green);color:#fff;padding:9px 13px;border-radius:9px;font-weight:700}
+.lesson{border-radius:18px;padding:22px}
+.lesson h2{color:var(--navy);margin-bottom:14px}
+.lesson h3{margin-top:20px;margin-bottom:8px;color:var(--green-dark)}
+.lesson p{margin-bottom:10px}
+.step{padding:15px;background:#f6faf8;border-left:4px solid var(--green);border-radius:9px;margin:10px 0}
+.step strong{display:block;color:var(--green-dark);margin-bottom:4px}
+.memory-box{background:var(--gold-soft);border:1px solid #f0d57a;border-radius:14px;padding:16px;margin-top:15px}
+.diagram-box{background:#f6f8fb;border:1px dashed #b7c4d0;border-radius:14px;padding:20px;margin-top:15px;text-align:center}
+.practice-box{background:#f1f7ff;border:1px solid #c7d9ef;border-radius:14px;padding:17px;margin-top:15px}
+.exam-box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px;margin-top:15px}
+.tag{display:inline-block;padding:4px 8px;border-radius:20px;background:var(--green-soft);color:var(--green-dark);font-size:12px;font-weight:800;margin-bottom:7px}
+
+.material-grid,.course-grid,.institution-grid,.career-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.material-icon{width:48px;height:48px;display:grid;place-items:center;background:var(--green-soft);border-radius:13px;font-size:24px;margin-bottom:8px}
+.material-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.material-actions button{border:0;border-radius:9px;padding:9px 12px;font-weight:800}
+.read-btn{background:var(--green);color:#fff}
+.download-btn{background:var(--gold);color:#151515}
+.locked{background:#fff7f7;border-color:#f0c8cc}
+
+.progress{height:10px;background:#e7eeeb;border-radius:20px;overflow:hidden;margin:10px 0}
+.progress-bar{height:100%;background:var(--green);width:0}
+.status{padding:13px 15px;border-radius:11px;background:#edf8f1;color:var(--green-dark);margin-bottom:15px;font-weight:700}
+.status.error{background:#fff0f0;color:#9d1c2b}
+.notice{border:1px solid #f0d57a;background:var(--gold-soft);border-radius:16px;padding:17px;margin-top:20px;color:#665000}
+.notice strong{color:#4c3a00}
+.empty{padding:25px;text-align:center;background:#fff;border:1px dashed #bccac4;border-radius:15px;color:var(--muted)}
+.loading{padding:45px 20px;text-align:center;color:var(--muted)}
+.result-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px;margin-bottom:10px}
+.result-card h3{color:var(--green-dark);margin-bottom:4px}
+
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:15px}
+.tab{border:1px solid var(--line);background:#fff;padding:9px 13px;border-radius:10px;font-weight:800}
+.tab.active{background:var(--green);color:#fff;border-color:var(--green)}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px}
+.stat strong{display:block;font-size:25px;color:var(--green-dark)}
+
+.reader{background:#172033;color:#fff;border-radius:18px;padding:15px;margin-top:15px}
+.reader-toolbar{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.reader-frame{width:100%;height:70vh;border:0;border-radius:10px;background:#fff}
+
+footer{margin-top:55px;background:#0c1724;color:#dbe5e2;padding:35px 0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:25px}
+footer h3{color:#fff;margin-bottom:10px}
+footer p,footer li{color:#aebdb8;font-size:14px}
+footer ul{list-style:none}
+footer li{margin:5px 0}
+.copyright{border-top:1px solid #263746;margin-top:25px;padding-top:18px;font-size:13px;color:#91a29d}
+
+.ad-slot{margin:20px 0;background:#fff;border:1px dashed #bdc9c5;border-radius:14px;padding:13px;text-align:center;color:var(--muted);font-size:13px}
+.timer{font-weight:900;color:var(--green-dark)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:3000;display:grid;place-items:center;padding:18px}
+.modal-card{width:min(620px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:20px;padding:22px;box-shadow:0 25px 70px rgba(0,0,0,.25)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px}
+.close-btn{border:0;background:#f1f3f3;border-radius:10px;padding:7px 11px;font-weight:900}
+
+@media(max-width:900px){
+  .header-inner{flex-wrap:wrap;padding:9px 0}
+  .menu-btn{display:block}
+  nav{display:none;width:100%;padding-bottom:6px;flex-wrap:wrap}
+  nav.open{display:flex}
+  .hero-grid{grid-template-columns:1fr;padding:28px 20px}
+  .hero-logo{max-width:320px}
+  .grid,.material-grid,.course-grid,.institution-grid,.career-grid{grid-template-columns:1fr 1fr}
+  .stat-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .brand-name{font-size:15px}.brand-sub{font-size:9px}.brand-logo{width:45px;height:45px}
+  .hero{border-radius:18px}.hero h1{font-size:34px}
+  .grid,.grid-2,.material-grid,.course-grid,.institution-grid,.career-grid,.form-grid{grid-template-columns:1fr}
+  .section{padding-top:32px}.stat-grid{grid-template-columns:1fr 1fr}
+  .reader-frame{height:60vh}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="wrap header-inner">
+    <a href="#" class="brand" onclick="go('home');return false;">
+      <img class="brand-logo" src="passco_gh_logo_horizontal.webp" alt="PASSCO GH MODOO logo">
+      <div>
+        <div class="brand-name">PASSCOGH-MODOO</div>
+        <div class="brand-sub">Learn • Prepare • Choose</div>
+      </div>
+    </a>
+    <button class="menu-btn" aria-label="Open navigation" onclick="toggleMenu()">☰</button>
+    <nav id="nav">
+      <button class="nav-btn" data-nav="home" onclick="go('home')">Home</button>
+      <button class="nav-btn" data-nav="pre-shs" onclick="go('pre-shs')">Pre-SHS</button>
+      <button class="nav-btn" data-nav="jhs" onclick="go('jhs')">JHS</button>
+      <button class="nav-btn" data-nav="shs" onclick="go('shs')">SHS</button>
+      <button class="nav-btn" data-nav="pre-uni" onclick="go('pre-uni')">Pre-University</button>
+      <button class="nav-btn" data-nav="tertiary" onclick="go('tertiary')">University & Colleges</button>
+      <button class="nav-btn" data-nav="materials" onclick="go('materials')">Materials</button>
+      <button class="nav-btn" data-nav="courses" onclick="go('courses')">Courses</button>
+      <button class="nav-btn" data-nav="exams" onclick="go('exams')">Exam Centre</button>
+      <button class="nav-btn" data-nav="tools" onclick="go('tools')">Study Tools</button>
+      <button class="nav-btn" data-nav="creator" onclick="go('creator')">Creator</button>
+      <button class="nav-btn" data-nav="account" onclick="go('account')">Account</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="app"><div class="loading">Loading PASSCOGH-MODOO…</div></div>
+</main>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <h3>PASSCOGH-MODOO</h3>
+      <p>A learner-focused educational platform designed to help Ghanaian learners learn better, prepare effectively and make informed educational choices.</p>
+      <p style="margin-top:9px">Learn • Prepare • Choose.</p>
+    </div>
+    <div>
+      <h3>Learn</h3>
+      <ul><li>Pre-SHS</li><li>JHS 1–3</li><li>SHS 1–3</li><li>Pre-University</li><li>University & Colleges</li></ul>
+    </div>
+    <div>
+      <h3>Explore</h3>
+      <ul><li>Materials</li><li>Courses & Certificates</li><li>BECE/WASSCE preparation</li><li>Career & institution guidance</li><li>Study tools</li></ul>
+    </div>
+  </div>
+  <div class="wrap copyright">
+    © <span id="year"></span> PASSCOGH-MODOO. Created for Ghanaian learners.
+    <span style="display:block;margin-top:5px">Educational content and platform materials are protected by applicable ownership and copyright rules.</span>
+  </div>
+</footer>
+
+<div id="modalRoot"></div>
+
+<script>
+/* =========================================================
+   PASSCOGH-MODOO — COMPLETE FRONTEND
+   Connects to the existing production backend through APIs.
+   IMPORTANT: payment, authentication and protected files must
+   be enforced by the backend; frontend checks alone are not
+   security controls.
+========================================================= */
+
+const API={
+  curriculum:"/api/curriculum",
+  institutions:"/api/institutions",
+  materials:"/api/materials",
+  courses:"/api/courses",
+  auth:"/api/auth",
+  account:"/api/account",
+  progress:"/api/progress",
+  certificates:"/api/certificates",
+  search:"/api/search",
+  payment:"/api/payments",
+  download:"/api/download",
+  admin:"/api/admin"
+};
+
+let DATA={};
+let INSTITUTIONS={};
+let MATERIALS=[];
+let COURSES=[];
+let USER=null;
+
+let state={
+  page:"home",
+  level:null,
+  subject:null,
+  topic:null,
+  query:""
+};
+
+const app=document.getElementById("app");
+document.getElementById("year").textContent=new Date().getFullYear();
+
+function toggleMenu(){document.getElementById("nav").classList.toggle("open")}
+
+function escapeHTML(value){
+  return String(value??"")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function textOf(value){
+  if(value===undefined||value===null)return "";
+  if(typeof value==="string")return value;
+  if(typeof value==="number"||typeof value==="boolean")return String(value);
+  return JSON.stringify(value);
+}
+
+function firstDefined(obj,keys,fallback=""){
+  if(!obj)return fallback;
+  for(const key of keys){
+    if(obj[key]!==undefined&&obj[key]!==null&&obj[key]!=="")return obj[key];
+  }
+  return fallback;
+}
+
+function normalizeArray(value){
+  if(Array.isArray(value))return value;
+  if(value&&typeof value==="object"){
+    return Object.entries(value).map(([key,val])=>{
+      if(typeof val==="object"&&val!==null)return {id:key,...val};
+      return {id:key,name:key,description:String(val)};
+    });
+  }
+  return [];
+}
+
+function getName(item,fallback="Untitled"){
+  return firstDefined(item,["name","title","subject","label","topicName","courseName","institutionName"],fallback);
+}
+
+function getDescription(item,fallback=""){
+  return firstDefined(item,["description","intro","summary","details","about","overview"],fallback);
+}
+
+function getTopics(subject){
+  return normalizeArray(firstDefined(subject,["topics","lessons","units","chapters"],[]));
+}
+
+function getTopicLessons(topic){
+  return normalizeArray(firstDefined(topic,["lessons","content","sections","steps"],[]));
+}
+
+function levelTitle(level){
+  return ({
+    "pre-shs":"Pre-SHS",
+    "jhs":"JHS 1–3",
+    "shs":"SHS 1–3",
+    "pre-uni":"Pre-University"
+  })[level]||level;
+}
+
+function apiHeaders(extra={}){
+  return {"Content-Type":"application/json",...extra};
+}
+
+async function apiGet(url){
+  try{
+    const r=await fetch(url,{credentials:"include"});
+    if(!r.ok)throw new Error("HTTP "+r.status);
+    return await r.json();
+  }catch(e){
+    console.warn("API unavailable:",url,e);
+    return null;
+  }
+}
+
+async function apiPost(url,body){
+  try{
+    const r=await fetch(url,{
+      method:"POST",credentials:"include",
+      headers:apiHeaders(),body:JSON.stringify(body)
+    });
+    const data=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(data.message||"Request failed");
+    return data;
+  }catch(e){
+    console.warn("API request failed:",url,e);
+    return {ok:false,message:e.message};
+  }
+}
+
+async function load(){
+  const [curr,inst,materials,courses,account]=await Promise.all([
+    apiGet(API.curriculum),
+    apiGet(API.institutions),
+    apiGet(API.materials),
+    apiGet(API.courses),
+    apiGet(API.account)
+  ]);
+  if(curr)DATA=curr;
+  if(inst)INSTITUTIONS=inst;
+  if(materials)MATERIALS=normalizeArray(materials.materials||materials);
+  if(courses)COURSES=normalizeArray(courses.courses||courses);
+  if(account)USER=account.user||account;
+  render();
+}
+
+function setActiveNav(){
+  document.querySelectorAll(".nav-btn").forEach(b=>{
+    b.classList.toggle("active",b.dataset.nav===state.page);
+  });
+}
+
+function go(page){
+  state={page,level:null,subject:null,topic:null,query:""};
+  document.getElementById("nav").classList.remove("open");
+  render();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function goLevel(level){
+  state={page:level,level,subject:null,topic:null,query:""};
+  document.getElementById("nav").classList.remove("open");
+  render();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function openSubject(subject){
+  state.subject=subject;
+  state.topic=null;
+  render();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function openTopic(topic){
+  state.topic=topic;
+  render();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function backToLevel(){
+  state.subject=null;state.topic=null;render();
+}
+
+function backToSubject(){
+  state.topic=null;render();
+}
+
+function getSubjects(level){
+  if(!DATA)return [];
+  if(Array.isArray(DATA.subjects)){
+    return DATA.subjects.filter(item=>{
+      if(!item||typeof item!=="object")return false;
+      const itemLevel=firstDefined(item,["level","stage","schoolLevel"],"");
+      if(!itemLevel)return true;
+      return String(itemLevel).toLowerCase().includes(level.toLowerCase());
+    });
+  }
+  if(DATA[level]){
+    if(Array.isArray(DATA[level]))return DATA[level];
+    if(DATA[level].subjects)return normalizeArray(DATA[level].subjects);
+  }
+  return [];
+}
+
+/* =========================================================
+   HOME
+========================================================= */
+
+function homeView(){
+  const cards=[
+    ["🟦","Pre-SHS","Build the foundation and readiness needed before entering Senior High School.","pre-shs"],
+    ["📚","JHS 1–3","Study the JHS curriculum with structured subjects, topics and learning support.","jhs"],
+    ["🎓","SHS 1–3","Explore SHS subjects, lessons, study methods and examination preparation.","shs"],
+    ["🚀","Pre-University","Prepare for the transition from SHS into tertiary education and career pathways.","pre-uni"],
+    ["🏫","University & Colleges","Explore tertiary institutions, courses, guidance and comparison information.","tertiary"],
+    ["🧠","Learning Materials","Read available learning resources online and manage access to protected downloads.","materials"],
+    ["🏆","Courses & Certificates","Take skills and academic-support courses, complete assessments and track certificates.","courses"],
+    ["📝","BECE & WASSCE","Prepare with examination guidance, past-question support and practice resources.","exams"],
+    ["🧮","Study Tools","Use GPA/CGPA tools and other study-support features.","tools"]
+  ];
+
+  app.innerHTML=`
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge">🇬🇭 Built for Ghanaian learners</div>
+        <h1>Learn.<br><span>Prepare.</span><br>Choose.</h1>
+        <p>PASSCOGH-MODOO helps learners understand difficult concepts, remember what they study, practise effectively, prepare for examinations and make informed educational choices.</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" onclick="goLevel('shs')">Start Learning</button>
+          <button class="btn btn-light" onclick="go('courses')">Courses & Certificates</button>
+          <button class="btn btn-light" onclick="go('creator')">Meet the Creator</button>
+        </div>
+      </div>
+      <div><img class="hero-logo" src="passco_gh_logo_horizontal.webp" alt="PASSCOGH-MODOO"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">What do you want to do?</h2>
+    <p class="section-intro">Choose a learning stage, resource or educational pathway.</p>
+    <div class="grid">
+      ${cards.map(c=>`
+        <article class="card">
+          <div class="icon">${c[0]}</div>
+          <h3>${escapeHTML(c[1])}</h3>
+          <p>${escapeHTML(c[2])}</p>
+          <button class="card-action" onclick="${["pre-shs","jhs","shs","pre-uni"].includes(c[3])?`goLevel('${c[3]}')`:`go('${c[3]}')`}">Explore →</button>
+        </article>
+      `).join("")}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="search-box">
+      <h2 class="section-title">🔎 Find something quickly</h2>
+      <p class="section-intro">Search subjects, topics, materials, courses, institutions and careers.</p>
+      <input id="globalSearch" placeholder="Search subjects, topics, institutions, courses…" oninput="globalSearch(this.value)">
+    </div>
+    <div id="searchResults"></div>
+  </section>
+
+  ${adSlot()}
+  <section class="section">
+    <div class="notice">
+      <strong>📌 Verify important information:</strong>
+      PASSCOGH-MODOO provides learning and educational guidance. Official curriculum documents, examination information, accreditation, fees and institutional requirements should be verified with the relevant official source before important decisions.
+    </div>
+  </section>`;
+}
+
+/* =========================================================
+   CURRICULUM
+========================================================= */
+
+function levelView(level){
+  const title=levelTitle(level);
+
+  if(state.topic)return lessonView(state.topic,title,state.subject);
+  if(state.subject)return subjectView(level,title);
+
+  const subjects=normalizeArray(getSubjects(level));
+
+  if(!subjects.length){
+    return `<section class="section">
+      <div class="breadcrumb"><button class="back-btn" onclick="go('home')">← Home</button><span>/ ${escapeHTML(title)}</span></div>
+      <h1 class="section-title">${escapeHTML(title)}</h1>
+      <p class="section-intro">Select a subject to begin learning.</p>
+      <div class="empty">Curriculum data is not currently available for this section. When the backend provides curriculum data, it will appear here automatically.</div>
+    </section>`;
+  }
+
+  return `<section class="section">
+    <div class="breadcrumb"><button class="back-btn" onclick="go('home')">← Home</button><span>/ ${escapeHTML(title)}</span></div>
+    <h1 class="section-title">${escapeHTML(title)}</h1>
+    <p class="section-intro">Choose a subject to continue.</p>
+    <div class="search-box"><input id="subjectFilter" placeholder="Filter subjects…" oninput="filterSubjects(this.value)"></div>
+    <div id="subjectGrid" class="grid">
+      ${subjects.map((s,i)=>`
+        <article class="card subject-item" data-search="${escapeHTML((getName(s)+" "+getDescription(s)).toLowerCase())}">
+          <h3>${escapeHTML(getName(s,`Subject ${i+1}`))}</h3>
+          <p>${escapeHTML(getDescription(s,"Explore lessons, topics and learning support."))}</p>
+          <button class="card-action" onclick="openSubjectByIndex('${escapeHTML(level)}',${i})">Open Subject →</button>
+        </article>`).join("")}
+    </div>
+  </section>`;
+}
+
+function openSubjectByIndex(level,index){
+  const subjects=normalizeArray(getSubjects(level));
+  if(subjects[index])openSubject(subjects[index]);
+}
+
+function filterSubjects(value){
+  const q=String(value||"").trim().toLowerCase();
+  document.querySelectorAll(".subject-item").forEach(card=>{
+    card.style.display=!q||(card.dataset.search||"").includes(q)?"":"none";
+  });
+}
+
+function subjectView(level,title){
+  const subject=state.subject;
+  const subjectName=getName(subject,"Subject");
+  const topics=getTopics(subject);
+
+  return `<section class="section">
+    <div class="breadcrumb"><button class="back-btn" onclick="backToLevel()">← ${escapeHTML(title)}</button><span>/ ${escapeHTML(subjectName)}</span></div>
+    <h1 class="section-title">${escapeHTML(subjectName)}</h1>
+    <p class="section-intro">${escapeHTML(getDescription(subject,"Explore topics and lessons for this subject."))}</p>
+    <div class="notice"><strong>🧠 PASSCOGH-MODOO learning method:</strong> UNDERSTAND → REMEMBER → SEE → DO → PRACTISE → EXAM.</div>
+    <section class="section">
+      <h2 class="section-title">Topics & Lessons</h2>
+      ${topics.length?topics.map((topic,i)=>`
+        <article class="topic-card">
+          <span class="tag">Topic ${i+1}</span>
+          <h3>${escapeHTML(getName(topic,`Topic ${i+1}`))}</h3>
+          <p>${escapeHTML(getDescription(topic,"Open this topic to study its lesson and practice material."))}</p>
+          <button onclick="openTopicByIndex(${i})">Study Topic →</button>
+        </article>`).join(""):`<div class="empty">No topics are currently available for this subject in the connected curriculum data.</div>`}
+    </section>
+  </section>`;
+}
+
+function openTopicByIndex(index){
+  const topics=getTopics(state.subject);
+  if(topics[index])openTopic(topics[index]);
+}
+
+function formatText(value){
+  return escapeHTML(textOf(value)).replace(/\n\n/g,"</p><p>").replace(/\n/g,"<br>");
+}
+
+function lessonView(topic,title,subject){
+  const topicName=getName(topic,"Lesson");
+  const lessons=getTopicLessons(topic);
+  const concept=firstDefined(topic,["concept","conceptExplanation"],"");
+  const explanation=firstDefined(topic,["simpleExplanation","explanation","body","text","content"],"");
+  const acronym=firstDefined(topic,["acronym","mnemonic","memoryTip"],"");
+  const diagram=firstDefined(topic,["diagram","diagramUrl","image"],"");
+  const example=firstDefined(topic,["example","workedExample"],"");
+  const practice=firstDefined(topic,["practice","practiceQuestions"],"");
+  const exam=firstDefined(topic,["examQuestion","exam"],"");
+  const answer=firstDefined(topic,["answer","solution","examAnswer"],"");
+
+  let steps="";
+  if(lessons.length){
+    steps=lessons.map((item,i)=>`
+      <div class="step">
+        <strong>${escapeHTML(getName(item,`Step ${i+1}`))}</strong>
+        <div>${formatText(getDescription(item,firstDefined(item,["content","text","body"],"")))}</div>
+      </div>`).join("");
+  }
+
+  return `<section class="section">
+    <div class="breadcrumb"><button class="back-btn" onclick="backToSubject()">← ${escapeHTML(getName(subject,"Subject"))}</button><span>/ ${escapeHTML(topicName)}</span></div>
+    <article class="lesson">
+      <span class="tag">📚 ${escapeHTML(title)}</span>
+      <h2>${escapeHTML(topicName)}</h2>
+
+      <h3>1️⃣ CONCEPT — What is it?</h3>
+      <p>${formatText(concept||getDescription(topic,"Understand the main idea before memorising it."))}</p>
+
+      <h3>2️⃣ SIMPLE EXPLANATION</h3>
+      <p>${formatText(explanation||"Break the idea into simple words and connect it to something familiar in everyday life.")}</p>
+
+      <div class="memory-box">
+        <strong>3️⃣ 🧠 REMEMBER — Acronym / Memory Trick</strong>
+        <p>${formatText(acronym||"Create a short, funny or familiar acronym that helps you recall the key points.")}</p>
+      </div>
+
+      <div class="diagram-box">
+        <strong>4️⃣ 👀 SEE — Labelled Diagram</strong>
+        ${diagram?`<img src="${escapeHTML(String(diagram))}" alt="Lesson diagram" style="max-width:100%;margin:14px auto;border-radius:10px">`:"<p style='margin-top:7px'>A labelled diagram can be supplied by the curriculum backend for this topic.</p>"}
+      </div>
+
+      <h3>5️⃣ ✏️ DO — Example / Worked Example</h3>
+      <p>${formatText(example||"Work through an example carefully. For calculation subjects, show the formula, why it is used, substitution, working, units and final answer/check.")}</p>
+
+      ${steps?`<div><h3>Step-by-Step Working</h3>${steps}</div>`:""}
+
+      <div class="practice-box">
+        <strong>6️⃣ PRACTISE</strong>
+        <p>${formatText(practice||"Try a similar question without looking at the example. For calculations, show every step and check your final answer.")}</p>
+      </div>
+
+      <div class="exam-box">
+        <strong>7️⃣ 📝 EXAM QUESTION</strong>
+        <p>${formatText(exam||"An examination-style question can be supplied by the curriculum backend for this topic.")}</p>
+        <details style="margin-top:10px"><summary><strong>Show answer / explanation</strong></summary><p style="margin-top:8px">${formatText(answer||"The answer and explanation can be supplied by the backend.")}</p></details>
+      </div>
+
+      <div class="memory-box">
+        <strong>✅ Final Recall</strong>
+        <p>Close your notes and explain the topic in your own words. If you cannot explain it, go back to the concept and try again.</p>
+      </div>
+    </article>
+  </section>`;
+}
+
+/* =========================================================
+   MATERIALS — ONLINE READING + PROTECTED DOWNLOAD FLOW
+========================================================= */
+
+function materialsView(){
+  const items=MATERIALS.length?MATERIALS:normalizeArray(DATA.materials||[]);
+  return `<section class="section">
+    <div class="breadcrumb"><button class="back-btn" onclick="go('home')">← Home</button><span>/ Learning Materials</span></div>
+    <h1 class="section-title">📚 Learning Materials</h1>
+    <p class="section-intro">Read supported materials online. Protected downloads can be unlocked through the platform's payment/access system.</p>
+
+    <div class="notice">
+      <strong>🔐 Access protection:</strong> Online reading and paid downloading are separate actions. The backend must verify ownership/payment before issuing a protected download link.
+    </div>
+
+    <div class="material-grid" style="margin-top:18px">
+      ${items.length?items.map((m,i)=>materialCard(m,i)).join(""):`<div class="empty" style="grid-column:1/-1">No learning materials are currently available from the materials API.</div>`}
+    </div>
+    ${adSlot()}
+    <div id="readerArea"></div>
+  </section>`;
+}
+
+function materialCard(m,i){
+  const name=getName(m,`Learning Material ${i+1}`);
+  const desc=getDescription(m,"Learning resource");
+  const id=firstDefined(m,["id","materialId","_id"],i);
+  const price=firstDefined(m,["price","downloadPrice","amount"],"Paid");
+  const onlineUrl=firstDefined(m,["viewerUrl","readUrl","url","fileUrl"],"");
+  return `<article class="material-card ${onlineUrl?"":"locked"}">
+    <div class="material-icon">📄</div>
+    <span class="tag">Protected Resource</span>
+    <h3>${escapeHTML(name)}</h3>
+    <p>${escapeHTML(desc)}</p>
+    <p><strong>Online reading:</strong> Free where enabled.</p>
+    <p><strong>Download:</strong> ${escapeHTML(String(price))}</p>
+    <div class="material-actions">
+      <button class="read-btn" onclick='readMaterial(${JSON.stringify(String(id))},${JSON.stringify(onlineUrl)})'>Read Online</button>
+      <button class="download-btn" onclick='requestDownload(${JSON.stringify(String(id))})'>Download PDF</button>
+    </div>
+  </article>`;
+}
+
+function readMaterial(id,url){
+  if(url){
+    const area=document.getElementById("readerArea");
+    if(area)area.innerHTML=`<div class="reader"><div class="reader-toolbar"><strong>📖 Online Reader</strong><button class="btn btn-light" onclick="closeReader()">Close</button></div><iframe class="reader-frame" src="${escapeHTML(url)}" title="Online material reader"></iframe></div>`;
+    window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+    return;
+  }
+  apiGet(`${API.materials}/${encodeURIComponent(id)}/read`).then(data=>{
+    const url=firstDefined(data||{},["viewerUrl","readUrl","url"],"");
+    if(url)readMaterial(id,url);
+    else showModal("Material unavailable",`<div class="empty">The backend has not supplied an online reader for this material yet.</div>`);
+  });
+}
+
+function closeReader(){const x=document.getElementById("readerArea");if(x)x.innerHTML=""}
+
+async function requestDownload(id){
+  if(!USER){
+    showModal("Sign in required",`<p>You need an account before purchasing a protected PDF download.</p><div class="form-actions"><button class="btn btn-green" onclick="closeModal();go('account')">Open Account</button></div>`);
+    return;
+  }
+  const result=await apiPost(API.payment+"/initialize",{type:"material_download",materialId:id});
+  if(result&&result.authorization_url){
+    window.location.href=result.authorization_url;
+    return;
+  }
+  if(result&&result.downloadUrl){
+    window.location.href=result.downloadUrl;
+    return;
+  }
+  showModal("Download payment",`<div class="status">${escapeHTML(result?.message||"The payment service is not currently available. Please try again later.")}</div><p>The protected download must be authorized by the backend after successful payment.</p>`);
+}
+
+/* =========================================================
+   COURSES + CERTIFICATES
+========================================================= */
+
+function coursesView(){
+  const courses=COURSES.length?COURSES:normalizeArray(DATA.courses||[]);
+  return `<section class="section">
+    <div class="breadcrumb"><button class="back-btn" onclick="go('home')">← Home</button><span>/ Courses</span></div>
+    <h1 class="section-title">🏆 Courses & Certificates</h1>
+    <p class="section-intro">Learn useful skills, complete assessments, track progress and earn certificates where a course provides certification.</p>
+    <div class="course-grid">${courses.length?courses.map((c,i)=>courseCard(c,i)).join(""):`<div class="empty" style="grid-column:1/-1">No courses are currently available from the courses API.</div>`}</div>
+  </section>`;
+}
+
+function courseCard(c,i){
+  const id=firstDefined(c,["id","courseId","_id"],i);
+  const progress=Number(firstDefined(c,["progress","completion"],0))||0;
+  return `<article class="course-card">
+    <span class="tag">🎓 Course</span>
+    <h3>${escapeHTML(getName(c,`Course ${i+1}`))}</h3>
+    <p>${escapeHTML(getDescription(c,"Learn, practise and complete the course requirements."))}</p>
+    <div class="progress"><div class="progress-bar" style="width:${Math.min(100,Math.max(0,progress))}%"></div></div>
+    <small>${progress}% progress</small>
+    <div class="form-actions">
+      <button class="btn btn-green" onclick='openCourse(${JSON.stringify(String(id))})'>Open Course</button>
+    </div>
+  </article>`;
+}
+
+async function openCourse(id){
+  const course=(COURSES||[]).find(c=>String(firstDefined(c,["id","courseId","_id"],""))===String(id));
+  if(course){
+    showModal(getName(course,"Course"),`
+      <p>${escapeHTML(getDescription(course,"Course information."))}</p>
+      <div class="notice"><strong>Certificate:</strong> Where enabled, completing the required lessons and assessment can make the learner eligible for a certificate.</div>
+      <div class="form-actions"><button class="btn btn-green" onclick="enrollCourse('${escapeHTML(id)}')">Enroll / Continue</button></div>`);
+    return;
+  }
+  const data=await apiGet(`${API.courses}/${encodeURIComponent(id)}`);
+  if(data)showModal(getName(data.course||data,"Course"),`<p>${escapeHTML(getDescription(data.course||data,"Course information."))}</p><button class="btn btn-green" onclick="enrollCourse('${escapeHTML(id)}')">Enroll / Continue</button>`);
+}
+
+async function enrollCourse(id){
+  if(!USER){closeModal();go("account");return}
+  const r=await apiPost(`${API.courses}/${encodeURIComponent(id)}/enroll`,{});
+  showModal("Course",`<div class="status ${r?.ok===false?"error":""}">${escapeHTML(r?.message||"Course request submitted.")}</div><button class="btn btn-green" onclick="closeModal();go('account')">Go to Account</button>`);
+}
+
+/* =========================================================
+   TERTIARY + INSTITUTIONS
+========================================================= */
+
+function tertiaryView(){
+  const institutions=normalizeArray(INSTITUTIONS);
+  return `<section class="section">
+    <div class="breadcrumb"><button class="back-btn" onclick="go('home')">← Home</button><span>/ University & Colleges</span></div>
+    <h1 class="section-title">🏫 University & Colleges</h1>
+    <p class="section-intro">Explore tertiary institutions and the information supplied by the platform backend.</p>
+    <div class="search-box"><input placeholder="Search institutions…" oninput="filterInstitutions(this.value)"></div>
+    <div id="institutionGrid" class="institution-grid">
+      ${institutions.length?institutions.map((x,i)=>institutionCard(x,i)).join(""):`<div class="empty" style="grid-column:1/-1">Institution data is not currently available from the backend.</div>`}
+    </div>
+    <div class="notice"><strong>🎓 Accreditation & fees:</strong> Institution accreditation, programmes, fees, admission requirements and application information should be verified with the official institution or appropriate Ghanaian authority.</div>
+  </section>`;
+}
+
+function institutionCard(x,i){
+  const name=getName(x,`Institution ${i+1}`);
+  const location=firstDefined(x,["location","city","region"],"");
+  const url=firstDefined(x,["officialUrl","website","url"],"");
+  return `<article class="institution-card" data-search="${escapeHTML((name+" "+getDescription(x)+" "+location).toLowerCase())}">
+    <span class="tag">Institution</span>
+    <h3>${escapeHTML(name)}</h3>
+    <p>${escapeHTML(getDescription(x,"Institution information."))}</p>
+    ${location?`<p><strong>Location:</strong> ${escapeHTML(location)}</p>`:""}
+    ${url?`<a class="card-action" style="display:inline-block;margin-top:10px" href="${escapeHTML(url)}" target="_blank" rel="noopener">Official Website ↗</a>`:""}
+  </article>`;
+}
+
+function filterInstitutions(value){
+  const q=String(value||"").toLowerCase().trim();
+  document.querySelectorAll("#institutionGrid .institution-card").forEach(c=>{
+    c.style.display=!q||(c.dataset.search||"").includes(q)?"":"none";
+  });
+}
+
+/* =========================================================
+   EXAMINATION PREPARATION
+========================================================= */
+
+const WASSCE_YEARS=Array.from({length:15},(_,i)=>2012+i);
+const EXAM_SUBJECTS=["English Language","Core Mathematics","Integrated Science","Social Studies","Biology","Chemistry","Physics","Economics","Geography","Government","History","Literature in English","Christian Religious Studies","Islamic Religious Studies","Business Management","Financial Accounting","Cost Accounting","Information & Communication Technology","French"];
+function examCard(title,icon,desc,action){return `<article class="exam-card"><div style="font-size:30px">${icon}</div><h3>${title}</h3><p>${desc}</p><button class="card-action" onclick="${action}">Open →</button></article>`}
+function examsView(){
+  return `<section class="section">
+    <div class="breadcrumb"><button class="back-btn" onclick="go('home')">← Home</button><span>/ Exam Centre</span></div>
+    <div class="hero" style="margin-bottom:22px"><div class="hero-grid"><div><span class="tag">PASSCOGH-MODOO EXAM CENTRE</span><h1>📝 Practise smarter. Prepare deeper. Perform better.</h1><p>One dedicated place for examination preparation, past-question navigation, WASSCE-style practice, practical preparation and original 2027 predicted practice.</p></div><div class="hero-panel"><strong>2012–2026</strong><span>Past-paper years</span><strong>2027</strong><span>Predicted practice</span></div></div></div>
+    <div class="grid">
+      ${examCard('Past Questions 2012–2026','📚','Choose a year, subject and paper. The interface is ready for authorised question sets to be connected.','openPastQuestions()')}
+      ${examCard('WASSCE Practice','🎯','Practise original WASSCE-style questions arranged by subject, topic and difficulty.','openWasscePractice()')}
+      ${examCard('2027 Predicted Practice','🔮','Original prediction-based practice for the 2027 batch. Predictions are not leaked or guaranteed WAEC questions.','openPredicted2027()')}
+      ${examCard('Practical Preparation','🧪','Theory-to-practical preparation, procedures, observations, diagrams and practical-style questions.','go(\'materials\')')}
+    </div>
+    <div class="notice"><strong>📌 Source rule:</strong> Actual WASSCE past questions will only be labelled as past questions when PASSCOGH-MODOO has a legitimate authorised/source copy. Until then, this centre provides the navigation and original practice framework.</div>
+  </section>`;
+}
+function openPastQuestions(){
+  app.innerHTML=`<section class="section"><div class="breadcrumb"><button class="back-btn" onclick="go('exams')">← Exam Centre</button></div><h1 class="section-title">📚 WASSCE Past Questions — 2012–2026</h1><p class="section-intro">Select a year and subject. Authorised question content can be connected here without changing the interface.</p><div class="grid-2">${WASSCE_YEARS.map(y=>`<article class="card"><h3>${y}</h3><p>Past-question collection</p><button class="btn btn-green" onclick="openPastYear(${y})">Choose ${y} →</button></article>`).join('')}</div></section>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function openPastYear(year){
+  app.innerHTML=`<section class="section"><div class="breadcrumb"><button class="back-btn" onclick="openPastQuestions()">← Years</button><span>/ ${year}</span></div><h1 class="section-title">📝 ${year} — Choose Subject</h1><p class="section-intro">Subject index for the ${year} past-question collection.</p><div class="grid">${EXAM_SUBJECTS.map((x,i)=>`<article class="card"><h3>${escapeHTML(x)}</h3><p>Objective • Theory • Practical where applicable</p><button class="btn btn-green" onclick="showExamSourceNotice(${year},'${escapeHTML(x).replace(/'/g,"\\'")}')">Open subject →</button></article>`).join('')}</div></section>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showExamSourceNotice(year,subject){
+  app.innerHTML=`<section class="section"><div class="breadcrumb"><button class="back-btn" onclick="openPastYear(${year})">← ${year}</button></div><div class="card"><span class="tag">${year}</span><h1 class="section-title">${escapeHTML(subject)}</h1><h3>Authorised source connection point</h3><p>The exam interface is ready for the legitimate ${year} ${escapeHTML(subject)} question set, answers and explanations to be connected. We will not invent or mislabel past questions.</p><div class="notice">WAEC permission/source status is kept separate from PASSCOGH-MODOO's original practice content.</div></div></section>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function openWasscePractice(){
+  app.innerHTML=`<section class="section"><div class="breadcrumb"><button class="back-btn" onclick="go('exams')">← Exam Centre</button></div><h1 class="section-title">🎯 WASSCE-Style Practice</h1><p class="section-intro">Original practice questions modelled on examination skills. Each question can later connect to its subject, topic, explanation and answer.</p><div class="grid">${EXAM_SUBJECTS.map((x,i)=>`<article class="card"><h3>${escapeHTML(x)}</h3><p>Topic practice • timed practice • answers • explanations</p><button class="btn btn-green" onclick="practiceSubject('${escapeHTML(x).replace(/'/g,"\\'")}')">Practise →</button></article>`).join('')}</div></section>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function practiceSubject(subject){
+  app.innerHTML=`<section class="section"><div class="breadcrumb"><button class="back-btn" onclick="openWasscePractice()">← Subjects</button></div><h1 class="section-title">🎯 ${escapeHTML(subject)} Practice</h1><div class="grid-2"><article class="card"><h3>Topic Practice</h3><p>Questions linked to individual curriculum topics.</p></article><article class="card"><h3>Timed Practice</h3><p>Build speed and examination technique.</p></article><article class="card"><h3>Answers & Explanations</h3><p>Every original question can have a clear answer and teaching explanation.</p></article><article class="card"><h3>Difficulty</h3><p>Foundation • Standard • Challenge</p></article></div></section>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function openPredicted2027(){
+  app.innerHTML=`<section class="section"><div class="breadcrumb"><button class="back-btn" onclick="go('exams')">← Exam Centre</button></div><div class="hero"><div class="hero-grid"><div><span class="tag">2027 BATCH</span><h1>🔮 Predicted Practice</h1><p>Original PASSCOGH-MODOO questions built from curriculum coverage, topic importance and examination-style skills. They are predictions—not leaked or guaranteed WAEC questions.</p></div></div></div><div class="grid">${EXAM_SUBJECTS.map(x=>`<article class="card"><h3>${escapeHTML(x)}</h3><p>Likely-topic revision • predicted practice • answers • explanations</p><button class="btn btn-green" onclick="practiceSubject('${escapeHTML(x).replace(/'/g,"\\'")}')">Open →</button></article>`).join('')}</div></section>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* =========================================================
+   CAREER / COURSE FINDER
+========================================================= */
+
+function careerView(){
+  const careers=normalizeArray(DATA.careers||DATA.careerPaths||[]);
+  return `<section class="section">
+    <div class="breadcrumb"><button class="back-btn" onclick="go('home')">← Home</button><span>/ Career Finder</span></div>
+    <h1 class="section-title">🧭 Course & Career Finder</h1>
+    <p class="section-intro">Use your interests and strengths to explore possible educational pathways.</p>
+    <div class="search-box">
+      <div class="form-grid">
+        <div class="form-group"><label>What do you enjoy?</label><select id="careerInterest"><option value="">Select</option><option>Science</option><option>Technology</option><option>Business</option><option>Arts</option><option>Education</option><option>Health</option><option>Engineering</option><option>Law</option></select></div>
+        <div class="form-group"><label>Preferred strength</label><select id="careerStrength"><option value="">Select</option><option>Problem solving</option><option>Communication</option><option>Creativity</option><option>Numbers</option><option>Helping people</option><option>Practical work</option></select></div>
+      </div>
+      <button class="btn btn-green" onclick="findCareer()">Find Pathways</button>
+    </div>
+    <div id="careerResults"></div>
+    ${careers.length?`<div class="career-grid">${careers.map((c,i)=>`<article class="career-card"><h3>${escapeHTML(getName(c,`Career ${i+1}`))}</h3><p>${escapeHTML(getDescription(c,"Career pathway information."))}</p></article>`).join("")}</div>`:""}
+  </section>`;
+}
+
+function findCareer(){
+  const interest=document.getElementById("careerInterest")?.value||"";
+  const strength=document.getElementById("careerStrength")?.value||"";
+  const results=document.getElementById("careerResults");
+  if(!interest||!strength){results.innerHTML=`<div class="status error">Please choose both options first.</div>`;return}
+  const suggestions={
+    Science:["Medicine & Health","Laboratory Science","Environmental Science","Teaching Science"],
+    Technology:["Computer Science","Software Development","Information Technology","Data & Digital Skills"],
+    Business:["Accounting","Finance","Marketing","Entrepreneurship"],
+    Arts:["Communication","Design","Languages","Media"],
+    Education:["Teacher Education","Educational Administration","Guidance & Counselling"],
+    Health:["Nursing","Medicine","Allied Health","Public Health"],
+    Engineering:["Civil Engineering","Electrical Engineering","Mechanical Engineering"],
+    Law:["Law","Public Administration","Legal Support"]
+  }[interest]||[];
+  results.innerHTML=`<div class="notice"><strong>Possible pathways for ${escapeHTML(interest)} + ${escapeHTML(strength)}:</strong><p style="margin-top:6px">${suggestions.map(escapeHTML).join(" • ")||"Explore related courses and institutions."}</p></div>`;
+}
+
+/* =========================================================
+   STUDY TOOLS — GPA / CGPA
+========================================================= */
+
+function toolsView(){
+  return `<section class="section">
+    <div class="breadcrumb"><button class="back-btn" onclick="go('home')">← Home</button><span>/ Study Tools</span></div>
+    <h1 class="section-title">🧮 Study Tools</h1>
+    <p class="section-intro">Simple tools to support your planning and study.</p>
+    <div class="grid-2">
+      <article class="card">
+        <h3>GPA Calculator</h3>
+        <p>Enter course credits and grade points.</p>
+        <div id="gpaRows" style="margin-top:12px">${gpaRow(0)}${gpaRow(1)}</div>
+        <div class="form-actions"><button class="btn btn-green" onclick="addGpaRow()">+ Add Course</button><button class="btn btn-primary" onclick="calculateGPA()">Calculate GPA</button></div>
+        <div id="gpaResult" class="notice hidden"></div>
+      </article>
+      <article class="card">
+        <h3>📅 Study Method</h3>
+        <p>Use the PASSCOGH-MODOO cycle:</p>
+        <div class="step"><strong>UNDERSTAND</strong>Know what the concept means.</div>
+        <div class="step"><strong>REMEMBER</strong>Use a familiar acronym or memory clue.</div>
+        <div class="step"><strong>SEE</strong>Use a labelled diagram where useful.</div>
+        <div class="step"><strong>DO</strong>Work through examples.</div>
+        <div class="step"><strong>PRACTISE</strong>Try without looking.</div>
+        <div class="step"><strong>EXAM</strong>Practise under examination conditions.</div>
+      </article>
+    </div>
+  </section>`;
+}
+
+function gpaRow(i){
+  return `<div class="form-grid gpa-row" style="margin-bottom:8px">
+    <input class="form-control gpa-credit" type="number" min="0" step="0.5" placeholder="Credit (${i+1})">
+    <input class="form-control gpa-point" type="number" min="0" step="0.01" placeholder="Grade point (${i+1})">
+  </div>`;
+}
+
+function addGpaRow(){
+  const box=document.getElementById("gpaRows");
+  if(box)box.insertAdjacentHTML("beforeend",gpaRow(box.querySelectorAll(".gpa-row").length));
+}
+
+function calculateGPA(){
+  let credits=0,points=0;
+  document.querySelectorAll(".gpa-row").forEach(row=>{
+    const c=parseFloat(row.querySelector(".gpa-credit")?.value||0);
+    const p=parseFloat(row.querySelector(".gpa-point")?.value||0);
+    if(c>0){credits+=c;points+=c*p}
+  });
+  const out=document.getElementById("gpaResult");
+  out.classList.remove("hidden");
+  out.innerHTML=credits?`<strong>GPA: ${(points/credits).toFixed(2)}</strong><br>Total credits: ${credits}`:"Enter at least one valid credit and grade point.";
+}
+
+/* =========================================================
+   ACCOUNT / PROGRESS / CERTIFICATES
+========================================================= */
+
+function accountView(){
+  if(!USER){
+    return `<section class="section">
+      <div class="breadcrumb"><button class="back-btn" onclick="go('home')">← Home</button><span>/ Account</span></div>
+      <h1 class="section-title">👤 Learner Account</h1>
+      <p class="section-intro">Sign in to track progress, courses, purchases and certificates.</p>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Sign In</h3>
+          <div class="form-group"><label>Email</label><input id="loginEmail" class="form-control" type="email"></div>
+          <div class="form-group"><label>Password</label><input id="loginPassword" class="form-control" type="password"></div>
+          <button class="btn btn-green" onclick="login()">Sign In</button>
+        </article>
+        <article class="card">
+          <h3>Create Account</h3>
+          <div class="form-group"><label>Name</label><input id="regName" class="form-control"></div>
+          <div class="form-group"><label>Email</label><input id="regEmail" class="form-control" type="email"></div>
+          <div class="form-group"><label>Password</label><input id="regPassword" class="form-control" type="password"></div>
+          <button class="btn btn-primary" onclick="register()">Create Account</button>
+        </article>
+      </div>
+      <div class="notice"><strong>🔒 Privacy:</strong> Account credentials and payment secrets must be handled by the secure backend, never stored as plain text in this page.</div>
+    </section>`;
+  }
+
+  return `<section class="section">
+    <div class="breadcrumb"><button class="back-btn" onclick="go('home')">← Home</button><span>/ Account</span></div>
+    <h1 class="section-title">👤 Welcome, ${escapeHTML(getName(USER,"Learner"))}</h1>
+    <div class="stat-grid">
+      <div class="stat"><span>Courses</span><strong>${escapeHTML(firstDefined(USER,["courseCount","coursesCount"],"0"))}</strong></div>
+      <div class="stat"><span>Progress</span><strong>${escapeHTML(firstDefined(USER,["progress","completion"],"0"))}%</strong></div>
+      <div class="stat"><span>Certificates</span><strong>${escapeHTML(firstDefined(USER,["certificateCount"],"0"))}</strong></div>
+      <div class="stat"><span>Materials</span><strong>${escapeHTML(firstDefined(USER,["purchasesCount","materialsCount"],"0"))}</strong></div>
+    </div>
+    <div class="grid-2">
+      <article class="card"><h3>📈 My Learning</h3><p>Continue courses and curriculum learning.</p><button class="card-action" onclick="go('courses')">Courses →</button></article>
+      <article class="card"><h3>🏆 My Certificates</h3><p>View certificates issued to your account.</p><button class="card-action" onclick="loadCertificates()">View Certificates →</button></article>
+    </div>
+    <div id="accountResults" style="margin-top:16px"></div>
+    <div class="form-actions" style="margin-top:20px"><button class="btn btn-danger" onclick="logout()">Sign Out</button></div>
+  </section>`;
+}
+
+async function login(){
+  const r=await apiPost(API.auth+"/login",{email:document.getElementById("loginEmail").value,password:document.getElementById("loginPassword").value});
+  if(r?.user){USER=r.user;closeModal();render()}
+  else showModal("Sign in",`<div class="status error">${escapeHTML(r?.message||"Sign in failed.")}</div>`);
+}
+
+async function register(){
+  const r=await apiPost(API.auth+"/register",{name:document.getElementById("regName").value,email:document.getElementById("regEmail").value,password:document.getElementById("regPassword").value});
+  if(r?.user){USER=r.user;closeModal();render()}
+  else showModal("Account",`<div class="status error">${escapeHTML(r?.message||"Registration failed.")}</div>`);
+}
+
+async function logout(){
+  await apiPost(API.auth+"/logout",{});
+  USER=null;go("account");
+}
+
+async function loadCertificates(){
+  const data=await apiGet(API.certificates);
+  const list=normalizeArray(data?.certificates||data||[]);
+  const target=document.getElementById("accountResults");
+  if(!target)return;
+  target.innerHTML=list.length?`<div class="card"><h3>🏆 Certificates</h3>${list.map(c=>`<div class="result-card"><h3>${escapeHTML(getName(c,"Certificate"))}</h3><p>${escapeHTML(getDescription(c,"Certificate issued by PASSCOGH-MODOO."))}</p>${firstDefined(c,["url","downloadUrl"],"")?`<a class="card-action" style="display:inline-block" href="${escapeHTML(firstDefined(c,["url","downloadUrl"],""))}" target="_blank" rel="noopener">View Certificate</a>`:""}</div>`).join("")}</div>`:`<div class="empty">No certificates are currently available for this account.</div>`;
+}
+
+/* =========================================================
+   CREATOR / ABOUT
+========================================================= */
+
+function creatorView(){
+  return `<section class="section">
+    <div class="breadcrumb"><button class="back-btn" onclick="go('home')">← Home</button><span>/ Creator</span></div>
+    <div class="creator grid-2" style="align-items:center">
+      <div class="card" style="padding:10px">
+        <img src="awudu_mohammed_modoo_ayariga.webp" alt="Awudu Mohammed Modoo Ayariga" style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center top;border-radius:16px" onerror="this.alt='Creator photo';this.style.display='none'">
+      </div>
+      <div>
+        <h1 class="section-title" style="font-size:32px">Awudu Mohammed Modoo Ayariga</h1>
+        <div style="color:var(--green);font-weight:800;margin-bottom:15px">Creator & Developer of PASSCOGH-MODOO</div>
+        <p style="color:var(--muted);margin-bottom:12px">PASSCOGH-MODOO is a learner-focused educational platform for Ghanaian learners across Pre-SHS, JHS, SHS, Pre-University and tertiary pathways.</p>
+        <p style="color:var(--muted);margin-bottom:12px">The purpose is to make difficult concepts easier to understand, easier to remember and easier to practise while helping learners make better educational choices.</p>
+        <div class="quote notice"><strong>Learn • Prepare • Choose.</strong></div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="grid">
+        <article class="card"><h3>📚 Learn</h3><p>Understand concepts using simple explanations, familiar memory tricks, diagrams and worked examples.</p></article>
+        <article class="card"><h3>📝 Prepare</h3><p>Practise topics, examination-style questions and structured revision.</p></article>
+        <article class="card"><h3>🧭 Choose</h3><p>Explore institutions, courses and career pathways before making important educational decisions.</p></article>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+async function globalSearch(value){
+  const q=String(value||"").trim().toLowerCase();
+  const results=document.getElementById("searchResults");
+  if(!results)return;
+  if(!q){results.innerHTML="";return}
+
+  const matches=[];
+  ["pre-shs","jhs","shs","pre-uni"].forEach(level=>{
+    normalizeArray(getSubjects(level)).forEach(subject=>{
+      const sn=getName(subject,"Subject"),sd=getDescription(subject,"");
+      if(`${sn} ${sd}`.toLowerCase().includes(q))matches.push({type:"Subject",name:sn,description:sd,action:()=>{state.page=level;state.level=level;openSubject(subject)}});
+      getTopics(subject).forEach(topic=>{
+        const tn=getName(topic,"Topic"),td=getDescription(topic,"");
+        if(`${tn} ${td}`.toLowerCase().includes(q))matches.push({type:"Topic",name:tn,description:td,action:()=>{state.page=level;state.level=level;state.subject=subject;openTopic(topic)}});
+      });
+    });
+  });
+
+  normalizeArray(INSTITUTIONS).forEach(x=>{
+    const n=getName(x,"Institution"),d=getDescription(x,"");
+    if(`${n} ${d}`.toLowerCase().includes(q))matches.push({type:"Institution",name:n,description:d,action:()=>go("tertiary")});
+  });
+
+  COURSES.forEach(c=>{
+    const n=getName(c,"Course"),d=getDescription(c,"");
+    if(`${n} ${d}`.toLowerCase().includes(q))matches.push({type:"Course",name:n,description:d,action:()=>go("courses")});
+  });
+
+  if(matches.length<5){
+    const remote=await apiGet(`${API.search}?q=${encodeURIComponent(q)}`);
+    normalizeArray(remote?.results||remote).forEach(x=>matches.push({type:firstDefined(x,["type"],"Search"),name:getName(x,"Result"),description:getDescription(x,""),action:()=>{}}));
+  }
+
+  window.__searchMatches=matches;
+  results.innerHTML=matches.length?`<div class="section-title" style="font-size:20px">Search results</div>${matches.slice(0,30).map((m,i)=>`<div class="result-card"><span class="tag">${escapeHTML(m.type)}</span><h3>${escapeHTML(m.name)}</h3><p>${escapeHTML(m.description||"Open to explore more.")}</p><button class="card-action" onclick="searchResultAction(${i})">Open →</button></div>`).join(""):`<div class="empty">No results found for <strong>${escapeHTML(value)}</strong>.</div>`;
+}
+
+function searchResultAction(i){
+  const m=window.__searchMatches||[];
+  if(m[i]?.action)m[i].action();
+}
+
+/* =========================================================
+   AD SLOT / 15-MINUTE STUDY WINDOW
+========================================================= */
+
+function adSlot(){
+  return `<div class="ad-slot" id="adSlot">
+    <span>Advertisement / learning support space</span>
+    <span class="timer" id="adTimer"></span>
+  </div>`;
+}
+
+function startAdTimer(){
+  const el=document.getElementById("adTimer");
+  if(!el)return;
+  const key="passcogh_ad_start";
+  let start=Number(localStorage.getItem(key)||0);
+  if(!start){start=Date.now();localStorage.setItem(key,String(start))}
+  const update=()=>{
+    const elapsed=Math.floor((Date.now()-start)/1000);
+    const remaining=Math.max(0,900-elapsed);
+    const min=Math.floor(remaining/60),sec=remaining%60;
+    el.textContent=remaining?` • Study window: ${min}:${String(sec).padStart(2,"0")}`:"";
+  };
+  update();setInterval(update,1000);
+}
+
+/* =========================================================
+   ADMIN / CREATOR ACCESS
+   ========================================================= */
+
+async function adminView(){
+  const data=await apiGet(API.admin+"/me");
+  const allowed=Boolean(data?.authenticated||data?.isAdmin||data?.role==="admin"||data?.role==="owner");
+  if(!allowed){
+    return `<section class="section"><div class="status error">Creator/admin access is protected. Sign in with an authorized owner/admin account.</div><div class="empty">The frontend does not contain an admin password. Authorization must be enforced by the backend.</div></section>`;
+  }
+  return `<section class="section">
+    <h1 class="section-title">⚙️ Creator / Admin Dashboard</h1>
+    <p class="section-intro">Manage platform data through the secure backend.</p>
+    <div class="grid">
+      <article class="admin-card"><h3>Curriculum</h3><p>Add or update levels, subjects, topics and lessons.</p><button class="card-action" onclick="adminEndpoint('curriculum')">Open →</button></article>
+      <article class="admin-card"><h3>Materials</h3><p>Manage online reading and protected downloads.</p><button class="card-action" onclick="adminEndpoint('materials')">Open →</button></article>
+      <article class="admin-card"><h3>Courses</h3><p>Manage courses, assessments and certificates.</p><button class="card-action" onclick="adminEndpoint('courses')">Open →</button></article>
+      <article class="admin-card"><h3>Users</h3><p>Manage learner accounts and access according to backend permissions.</p><button class="card-action" onclick="adminEndpoint('users')">Open →</button></article>
+      <article class="admin-card"><h3>Payments</h3><p>Review payment/download transactions through the backend.</p><button class="card-action" onclick="adminEndpoint('payments')">Open →</button></article>
+      <article class="admin-card"><h3>Institutions</h3><p>Manage tertiary institution information and verification fields.</p><button class="card-action" onclick="adminEndpoint('institutions')">Open →</button></article>
+    </div>
+  </section>`;
+}
+
+async function adminEndpoint(section){
+  const data=await apiGet(`${API.admin}/${section}`);
+  showModal("Admin: "+section,`<pre style="white-space:pre-wrap;overflow:auto;background:#f6f8f7;padding:12px;border-radius:10px">${escapeHTML(JSON.stringify(data||{},null,2))}</pre>`);
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function showModal(title,body){
+  document.getElementById("modalRoot").innerHTML=`<div class="modal" onclick="if(event.target===this)closeModal()"><div class="modal-card"><div class="modal-head"><h2>${escapeHTML(title)}</h2><button class="close-btn" onclick="closeModal()">✕</button></div>${body}</div></div>`;
+}
+function closeModal(){document.getElementById("modalRoot").innerHTML=""}
+
+/* =========================================================
+   ROUTER
+========================================================= */
+
+async function render(){
+  setActiveNav();
+  try{
+    if(state.page==="home")homeView();
+    else if(["pre-shs","jhs","shs","pre-uni"].includes(state.page))app.innerHTML=levelView(state.page);
+    else if(state.page==="materials")app.innerHTML=materialsView();
+    else if(state.page==="courses")app.innerHTML=coursesView();
+    else if(state.page==="tertiary")app.innerHTML=tertiaryView();
+    else if(state.page==="exams")app.innerHTML=examsView();
+    else if(state.page==="tools")app.innerHTML=toolsView();
+    else if(state.page==="creator")app.innerHTML=creatorView();
+    else if(state.page==="career")app.innerHTML=careerView();
+    else if(state.page==="account")app.innerHTML=accountView();
+    else if(state.page==="admin")app.innerHTML=await adminView();
+    else homeView();
+    startAdTimer();
+  }catch(error){
+    console.error(error);
+    app.innerHTML=`<section class="section"><div class="status error">Something went wrong while displaying this page.</div><div class="empty">Please refresh the page. If the problem continues, check the backend data.</div></section>`;
+  }
+}
+
+/* Add career finder to home without adding another navigation item. */
+window.openCareerFinder=()=>go("career");
+
+render();
+load();
+</script>
+</body>
+</html>
